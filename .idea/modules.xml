@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/java-library.iml" filepath="$PROJECT_DIR$/java-library.iml" />
       <module fileurl="file://$PROJECT_DIR$/logic-library/logic-library.iml" filepath="$PROJECT_DIR$/logic-library/logic-library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/none-library/none-library.iml" filepath="$PROJECT_DIR$/none-library/none-library.iml" />
     </modules>
   </component>
 </project>
