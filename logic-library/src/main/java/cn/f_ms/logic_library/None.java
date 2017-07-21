@@ -9,6 +9,8 @@ package cn.f_ms.logic_library;
 
 public final class None {
     private static final None NONE = new None();
+
     private None() {}
-    public static final None NONE() { return NONE; }
+
+    public static final None instance() { return NONE; }
 }
