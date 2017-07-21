@@ -1,4 +1,4 @@
-package cn.f_ms.none_library;
+package cn.f_ms.logic_library;
 
 /**
  * None
