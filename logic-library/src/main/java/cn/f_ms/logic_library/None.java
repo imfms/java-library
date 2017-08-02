@@ -7,7 +7,7 @@ package cn.f_ms.logic_library;
  * @time 2017/7/15
  */
 
-public final class None {
+public final class None implements INone {
     private static final None NONE = new None();
 
     private None() {}
