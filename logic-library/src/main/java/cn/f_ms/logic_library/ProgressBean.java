@@ -55,13 +55,20 @@ public class ProgressBean<T> {
         }
     }
 
-    public static ProgressBean obtain() {
+    public static <T> ProgressBean obtain() { return obtain(0, 0, null); }
+    public static <T> ProgressBean obtain(long total, long progress) { return obtain(total, progress, null); }
+    public static <T> ProgressBean obtain(long total, long progress, T data) {
         synchronized (ProgressBean.class) {
 
             if (sPoolList != null
                     && !sPoolList.isEmpty()) {
                 ProgressBean bean = sPoolList.remove();
                 bean.isRecycle = false;
+
+                bean.total(total);
+                bean.progress(progress);
+                bean.data(data);
+
                 return bean;
             }
         }
