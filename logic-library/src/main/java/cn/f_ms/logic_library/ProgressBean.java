@@ -42,22 +42,21 @@ public class ProgressBean<T> {
                 sPoolList = new LinkedList<>();
             }
 
-            if (sPoolList.size() > MAX_POOL_SIZE) {
+            if (sPoolList.size() >= MAX_POOL_SIZE) {
                 return;
             }
 
             if (isRecycle) {
                 return;
             }
-            emptyData(this);
             this.isRecycle = true;
             sPoolList.add(this);
         }
     }
 
-    public static <T> ProgressBean obtain() { return obtain(0, 0, null); }
-    public static <T> ProgressBean obtain(long total, long progress) { return obtain(total, progress, null); }
-    public static <T> ProgressBean obtain(long total, long progress, T data) {
+    public static <T> ProgressBean<T> obtain() { return obtain(0, 0, null); }
+    public static <T> ProgressBean<T> obtain(long total, long progress) { return obtain(total, progress, null); }
+    public static <T> ProgressBean<T> obtain(long total, long progress, T data) {
         synchronized (ProgressBean.class) {
 
             if (sPoolList != null
@@ -72,17 +71,7 @@ public class ProgressBean<T> {
                 return bean;
             }
         }
-        return new ProgressBean<>();
-    }
-
-    private static void emptyData(ProgressBean bean) {
-        if (bean == null) {
-            throw new IllegalArgumentException("bean can't be null");
-        }
-
-        bean.progress = 0;
-        bean.total =  0;
-        bean.data = null;
+        return new ProgressBean<>(total, progress, data);
     }
 
     @Override
