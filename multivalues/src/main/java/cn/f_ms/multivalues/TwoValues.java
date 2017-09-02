@@ -1,4 +1,4 @@
-package cn.f_ms.logic_library.multivalues;
+package cn.f_ms.multivalues;
 
 /**
  * TwoValues

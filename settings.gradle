@@ -1,1 +1,1 @@
-include ':app', ':logic-library', ':check-library'
+include ':app', ':logic-library', ':check-library', ':multivalues'

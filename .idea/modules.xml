@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/check-library/check-library.iml" filepath="$PROJECT_DIR$/check-library/check-library.iml" />
       <module fileurl="file://$PROJECT_DIR$/java-library.iml" filepath="$PROJECT_DIR$/java-library.iml" />
       <module fileurl="file://$PROJECT_DIR$/logic-library/logic-library.iml" filepath="$PROJECT_DIR$/logic-library/logic-library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/multivalues/multivalues.iml" filepath="$PROJECT_DIR$/multivalues/multivalues.iml" />
     </modules>
   </component>
 </project>
