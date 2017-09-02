@@ -1,4 +1,4 @@
-package cn.f_ms.logic_library;
+package cn.f_ms.logic_library.multivalues;
 
 /**
  * ThreeValues
@@ -24,7 +24,7 @@ public class FourValues<First, Second, Third, Fourth> {
     public First first() { return first;  }
     public Second second() {  return second; }
     public Third third() { return third; }
-    public Third fourth() { return third; }
+    public Fourth fourth() { return fourth; }
 
     @Override
     public boolean equals(Object o) {

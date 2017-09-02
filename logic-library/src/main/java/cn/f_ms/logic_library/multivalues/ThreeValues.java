@@ -1,34 +1,38 @@
-package cn.f_ms.logic_library;
+package cn.f_ms.logic_library.multivalues;
 
 /**
- * TwoValues
+ * ThreeValues
  *
  * @author imf_m
  * @time 2017/7/15
  */
 
-public class TwoValues<First, Second> {
+public class ThreeValues<First, Second, Third> {
 
     private final First first;
     private final Second second;
+    private final Third third;
 
-    public TwoValues(First first, Second second) {
+    public ThreeValues(First first, Second second, Third third) {
         this.first = first;
         this.second = second;
+        this.third = third;
     }
 
     public First first() { return first;  }
     public Second second() {  return second; }
+    public Third third() { return third; }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        TwoValues<?, ?> that = (TwoValues<?, ?>) o;
+        ThreeValues<?, ?, ?> that = (ThreeValues<?, ?, ?>) o;
 
         if (first != null ? !first.equals(that.first) : that.first != null) return false;
-        return second != null ? second.equals(that.second) : that.second == null;
+        if (second != null ? !second.equals(that.second) : that.second != null) return false;
+        return third != null ? third.equals(that.third) : that.third == null;
 
     }
 
@@ -36,6 +40,7 @@ public class TwoValues<First, Second> {
     public int hashCode() {
         int result = first != null ? first.hashCode() : 0;
         result = 31 * result + (second != null ? second.hashCode() : 0);
+        result = 31 * result + (third != null ? third.hashCode() : 0);
         return result;
     }
 }

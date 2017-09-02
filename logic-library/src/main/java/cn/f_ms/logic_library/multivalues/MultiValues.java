@@ -1,4 +1,4 @@
-package cn.f_ms.logic_library;
+package cn.f_ms.logic_library.multivalues;
 
 /**
  * Multivalues Helper
@@ -23,5 +23,9 @@ public final class MultiValues {
 
     public static <First, Second, Third, Fourth> FourValues<First, Second, Third, Fourth> create(First first, Second second, Third third, Fourth fourth) {
         return new FourValues<>(first, second, third, fourth);
+    }
+
+    public static <First, Second, Third, Fourth, Fifth> FiveValues<First, Second, Third, Fourth, Fifth> create(First first, Second second, Third third, Fourth fourth, Fifth fifth) {
+        return new FiveValues<>(first, second, third, fourth, fifth);
     }
 }
