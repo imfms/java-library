@@ -1,7 +1,7 @@
 package cn.f_ms.logic_library;
 
 /**
- * 输入|输出
+ * Input==Output
  *
  * @author imf_m
  * @time 2017/7/22
