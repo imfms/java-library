@@ -1,19 +1,19 @@
 package cn.f_ms.logic_library;
 
 /**
- * TripleValue
+ * ThreeValues
  *
  * @author imf_m
  * @time 2017/7/15
  */
 
-public class TripleValue<First, Second, Third> {
+public class ThreeValues<First, Second, Third> {
 
     private final First first;
     private final Second second;
     private final Third third;
 
-    public TripleValue(First first, Second second, Third third) {
+    public ThreeValues(First first, Second second, Third third) {
         this.first = first;
         this.second = second;
         this.third = third;
@@ -28,7 +28,7 @@ public class TripleValue<First, Second, Third> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        TripleValue<?, ?, ?> that = (TripleValue<?, ?, ?>) o;
+        ThreeValues<?, ?, ?> that = (ThreeValues<?, ?, ?>) o;
 
         if (first != null ? !first.equals(that.first) : that.first != null) return false;
         if (second != null ? !second.equals(that.second) : that.second != null) return false;
