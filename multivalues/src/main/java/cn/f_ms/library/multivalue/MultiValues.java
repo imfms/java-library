@@ -1,4 +1,4 @@
-package cn.f_ms.multivalues;
+package cn.f_ms.library.multivalue;
 
 /**
  * Multivalues Helper

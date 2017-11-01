@@ -1,4 +1,4 @@
-package cn.f_ms.logic_library;
+package cn.f_ms.library.logic;
 
 /**
  * None '无' 类型标识接口

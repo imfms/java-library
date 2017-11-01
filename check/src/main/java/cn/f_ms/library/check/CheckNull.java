@@ -1,6 +1,6 @@
-package cn.f_ms.check_library;
+package cn.f_ms.library.check;
 
-import static cn.f_ms.check_library.CheckCollection.isExistNull;
+import static cn.f_ms.library.check.CheckCollection.isExistNull;
 
 /**
  * Check Null
@@ -33,7 +33,7 @@ public class CheckNull {
     public static <T> T[] ifArgsExistNullThrowException(RuntimeException exception, T... args) {
         args = CheckNull.ifNullThrowArg(args, "args can't be null");
 
-        if (isExistNull(args)) {
+        if (CheckCollection.isExistNull(args)) {
             throw exception;
         }
 
