@@ -6,10 +6,12 @@ import java.util.Collection;
  * CheckCollection
  *
  * @author imf_m
- * @time 2017/7/16
+ * @date 2017/7/16
  */
 
 public class CheckCollection {
+
+    private CheckCollection() { throw new IllegalStateException("I have no instance"); }
 
     public static <T> boolean isEmptyWithNull(Collection<T> collection) {
         if (CheckNull.isNull(collection)) { return true; }
@@ -17,7 +19,7 @@ public class CheckCollection {
         return collection.isEmpty();
     }
 
-    public <T> boolean isEmptyWithNull(T[] tArr) {
+    public static <T> boolean isEmptyWithNull(T[] tArr) {
         if (CheckNull.isNull(tArr)) { return true; }
 
         return tArr.length <= 0;
