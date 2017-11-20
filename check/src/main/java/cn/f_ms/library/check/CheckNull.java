@@ -39,7 +39,7 @@ public class CheckNull {
      * @return input obj
      */
     public static <T> T ifNullThrowArgException(T obj) {
-        return ifNullThrowNpe(obj, "value can't be null");
+        return ifNullThrowArgException(obj, "value can't be null");
     }
 
     /**
