@@ -12,7 +12,7 @@ public class OneValue<T> {
 
     public OneValue(T value) { this.first = value; }
 
-    public T value() {
+    public T first() {
         return first;
     }
 
