@@ -4,7 +4,7 @@ package cn.f_ms.library.multivalue;
  * ThreeValues
  *
  * @author imf_m
- * @time 2017/7/15
+ * @date 2017/7/15
  */
 
 public class FiveValues<First, Second, Third, Fourth, Fifth> {

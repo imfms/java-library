@@ -4,7 +4,7 @@ package cn.f_ms.library.logic;
  * IsSelectValue
  *
  * @author imf_m
- * @time 2017/7/16
+ * @date 2017/7/16
  */
 
 public class IsSelectValue<V> {

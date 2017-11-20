@@ -4,7 +4,7 @@ package cn.f_ms.library.multivalue;
  * OneValue
  *
  * @author imf_m
- * @time 2017/7/15
+ * @date 2017/7/15
  */
 public class OneValue<T> {
 
