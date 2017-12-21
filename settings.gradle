@@ -1,1 +1,1 @@
-include ':app', ':logic', ':check', ':multivalues'
+include ':app', ':logic', ':check', ':multivalues', ':collection_util'
