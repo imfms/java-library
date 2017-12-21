@@ -33,6 +33,8 @@ public class ElementFilterUtil {
         Output convert(Input input);
     }
 
+    public static final int FILTER_ELEMENT_NUM_UNLIMIT = -1;
+
     /**
      * no instance
      */
@@ -230,6 +232,7 @@ public class ElementFilterUtil {
 
     /**
      * convert array's data after specify converter
+     * // TODO: 17-12-21 try remove resultClass argument
      *
      * @param sources   source collection
      * @param converter element convert
@@ -328,7 +331,7 @@ public class ElementFilterUtil {
      * @return result element container
      */
     public static <Element, Result, Collection extends java.util.Collection<Result>> Collection filter(Element[] sources, Collection targetCollection, Filter<Element> filter, Converter<Element, Result> converter) {
-        return filter(-1, sources, targetCollection, filter, converter);
+        return filter(FILTER_ELEMENT_NUM_UNLIMIT, sources, targetCollection, filter, converter);
     }
 
     /**
@@ -343,7 +346,7 @@ public class ElementFilterUtil {
      * @return result element container
      */
     public static <Element, Result, Collection extends java.util.Collection<Result>> Collection filter(Iterable<? extends Element> sources, Collection targetCollection, Filter<Element> filter, Converter<Element, Result> converter) {
-        return filter(-1, sources, targetCollection, filter, converter);
+        return filter(FILTER_ELEMENT_NUM_UNLIMIT, sources, targetCollection, filter, converter);
     }
 
     /**
@@ -357,7 +360,7 @@ public class ElementFilterUtil {
      * @return result element container
      */
     public static <Element, Result> Result[] filter(Element[] sources, Result[] targetArray, Filter<Element> filter, Converter<Element, Result> converter) {
-        return filter(-1, sources, targetArray, filter, converter);
+        return filter(FILTER_ELEMENT_NUM_UNLIMIT, sources, targetArray, filter, converter);
     }
 
     /**
@@ -372,7 +375,7 @@ public class ElementFilterUtil {
      * @throws ArrayIndexOutOfBoundsException targetArray length less actual result element number
      */
     public static <Element, Result> Result[] filter(Iterable<? extends Element> sources, Result[] targetArray, Filter<Element> filter, Converter<Element, Result> converter) {
-        return filter(-1, sources, targetArray, filter, converter);
+        return filter(FILTER_ELEMENT_NUM_UNLIMIT, sources, targetArray, filter, converter);
     }
 
     // base line
@@ -425,7 +428,7 @@ public class ElementFilterUtil {
             throw new IllegalArgumentException("targetCollection can't be null");
         }
 
-        if (maxTargetElementNum < -1) {
+        if (maxTargetElementNum < FILTER_ELEMENT_NUM_UNLIMIT) {
             throw new IllegalArgumentException("maxTargetElementNum can't less -1");
         }
 
@@ -445,7 +448,7 @@ public class ElementFilterUtil {
                 currentElementNum++;
 
                 // -1 == no limit
-                if (currentElementNum != -1
+                if (currentElementNum != FILTER_ELEMENT_NUM_UNLIMIT
                         && currentElementNum >= maxTargetElementNum) {
                     return targetCollection;
                 }
@@ -502,7 +505,7 @@ public class ElementFilterUtil {
             throw new IllegalArgumentException("targetArray can't be null");
         }
 
-        if (maxTargetElementNum < -1) {
+        if (maxTargetElementNum < FILTER_ELEMENT_NUM_UNLIMIT) {
             throw new IllegalArgumentException("maxTargetElementNum can't less -1");
         }
 
@@ -525,7 +528,7 @@ public class ElementFilterUtil {
                 currentElementNum++;
 
                 // -1 == no limit
-                if (currentElementNum != -1
+                if (currentElementNum != FILTER_ELEMENT_NUM_UNLIMIT
                         && currentElementNum >= maxTargetElementNum) {
                     return targetArray;
                 }
