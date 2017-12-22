@@ -394,6 +394,10 @@ public class ElementFilterUtil {
      * @return result element container
      */
     public static <Element, Result, Collection extends java.util.Collection<Result>> Collection filter(int maxTargetElementNum, Element[] sources, Collection targetCollection, Filter<Element> filter, Converter<Element, Result> converter) {
+        if (sources == null) {
+            throw new IllegalArgumentException("sources can't be null");
+        }
+
         return filter(maxTargetElementNum, Arrays.asList(sources), targetCollection, filter, converter);
     }
 
@@ -448,7 +452,7 @@ public class ElementFilterUtil {
                 currentElementNum++;
 
                 // -1 == no limit
-                if (currentElementNum != FILTER_ELEMENT_NUM_UNLIMIT
+                if (maxTargetElementNum != FILTER_ELEMENT_NUM_UNLIMIT
                         && currentElementNum >= maxTargetElementNum) {
                     return targetCollection;
                 }
@@ -471,6 +475,9 @@ public class ElementFilterUtil {
      * @return result element container
      */
     public static <Element, Result> Result[] filter(int maxTargetElementNum, Element[] sources, Result[] targetArray, Filter<Element> filter, Converter<Element, Result> converter) {
+        if (sources == null) {
+            throw new IllegalArgumentException("sources can't be null");
+        }
         return filter(maxTargetElementNum, Arrays.asList(sources), targetArray, filter, converter);
     }
 
@@ -519,7 +526,9 @@ public class ElementFilterUtil {
             if (filter.isAccept(source)) {
 
                 if (targetArray.length - 1 < currentArrayIndex) {
-                    throw new ArrayIndexOutOfBoundsException(currentArrayIndex + ", but array's length == " + targetArray.length);
+                    throw new ArrayIndexOutOfBoundsException(
+                            String.format("try to write value to index %s, but array's length == %s (index = 0-%s)", currentArrayIndex, targetArray.length, (targetArray.length - 1))
+                    );
                 }
 
                 targetArray[currentArrayIndex] = converter.convert(source);
@@ -528,7 +537,7 @@ public class ElementFilterUtil {
                 currentElementNum++;
 
                 // -1 == no limit
-                if (currentElementNum != FILTER_ELEMENT_NUM_UNLIMIT
+                if (maxTargetElementNum != FILTER_ELEMENT_NUM_UNLIMIT
                         && currentElementNum >= maxTargetElementNum) {
                     return targetArray;
                 }
