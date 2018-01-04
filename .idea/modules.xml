@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/check/check.iml" filepath="$PROJECT_DIR$/check/check.iml" />
+      <module fileurl="file://$PROJECT_DIR$/collection_util/collection_util.iml" filepath="$PROJECT_DIR$/collection_util/collection_util.iml" />
       <module fileurl="file://$PROJECT_DIR$/java-library.iml" filepath="$PROJECT_DIR$/java-library.iml" />
       <module fileurl="file://$PROJECT_DIR$/logic/logic.iml" filepath="$PROJECT_DIR$/logic/logic.iml" />
       <module fileurl="file://$PROJECT_DIR$/multivalues/multivalues.iml" filepath="$PROJECT_DIR$/multivalues/multivalues.iml" />
