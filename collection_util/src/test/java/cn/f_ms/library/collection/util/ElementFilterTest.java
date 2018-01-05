@@ -17,23 +17,23 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
 /**
- * ElementFilterUtilTest
+ * ElementFilterTest
  *
  * @author f_ms
  * @date 17-12-21
  */
-public class ElementFilterUtilTest {
+public class ElementFilterTest {
 
     private List<String> testList;
     private String[] testArray;
 
-    private ElementFilterUtil.Filter<String> testFilter = new ElementFilterUtil.Filter<String>() {
+    private ElementFilter.Filter<String> testFilter = new ElementFilter.Filter<String>() {
         @Override
         public boolean isAccept(String s) {
             return false;
         }
     };
-    private ElementFilterUtil.Converter<String, Integer> testConverter = new ElementFilterUtil.Converter<String, Integer>() {
+    private ElementFilter.Converter<String, Integer> testConverter = new ElementFilter.Converter<String, Integer>() {
         @Override
         public Integer convert(String s) {
             return null;
@@ -62,7 +62,7 @@ public class ElementFilterUtilTest {
         Argument Check Test
          */
         try {
-            ElementFilterUtil.isExist(null, new ElementFilterUtil.Filter<Object>() {
+            ElementFilter.isExist(null, new ElementFilter.Filter<Object>() {
                 @Override
                 public boolean isAccept(Object o) {
                     return false;
@@ -75,7 +75,7 @@ public class ElementFilterUtilTest {
         }
 
         try {
-            ElementFilterUtil.isExist(testList, null);
+            ElementFilter.isExist(testList, null);
 
             fail();
         } catch (IllegalArgumentException e) {
@@ -85,7 +85,7 @@ public class ElementFilterUtilTest {
         /*
         feature test
          */
-        boolean isExist7 = ElementFilterUtil.isExist(testList, new ElementFilterUtil.Filter<String>() {
+        boolean isExist7 = ElementFilter.isExist(testList, new ElementFilter.Filter<String>() {
             @Override
             public boolean isAccept(String s) {
                 return "7".equals(s);
@@ -93,7 +93,7 @@ public class ElementFilterUtilTest {
         });
         assertThat(isExist7, is(true));
 
-        boolean isExist11 = ElementFilterUtil.isExist(testList, new ElementFilterUtil.Filter<String>() {
+        boolean isExist11 = ElementFilter.isExist(testList, new ElementFilter.Filter<String>() {
             @Override
             public boolean isAccept(String s) {
                 return "11".equals(s);
@@ -109,7 +109,7 @@ public class ElementFilterUtilTest {
         Argument Check Test
          */
         try {
-            ElementFilterUtil.filterFirst((Iterable<?>) null, new ElementFilterUtil.Filter<Object>() {
+            ElementFilter.filterFirst((Iterable<?>) null, new ElementFilter.Filter<Object>() {
                 @Override
                 public boolean isAccept(Object o) {
                     return false;
@@ -122,7 +122,7 @@ public class ElementFilterUtilTest {
         }
 
         try {
-            ElementFilterUtil.filterFirst(testList, null);
+            ElementFilter.filterFirst(testList, null);
 
             fail();
         } catch (IllegalArgumentException e) {
@@ -132,7 +132,7 @@ public class ElementFilterUtilTest {
         /*
         feature test
          */
-        String result7 = ElementFilterUtil.filterFirst(testList, new ElementFilterUtil.Filter<String>() {
+        String result7 = ElementFilter.filterFirst(testList, new ElementFilter.Filter<String>() {
             @Override
             public boolean isAccept(String s) {
                 return "7".equals(s);
@@ -140,7 +140,7 @@ public class ElementFilterUtilTest {
         });
         assertThat(result7, CoreMatchers.equalTo("7"));
 
-        String result11 = ElementFilterUtil.filterFirst(testList, new ElementFilterUtil.Filter<String>() {
+        String result11 = ElementFilter.filterFirst(testList, new ElementFilter.Filter<String>() {
             @Override
             public boolean isAccept(String s) {
                 return "11".equals(s);
@@ -156,12 +156,12 @@ public class ElementFilterUtilTest {
         Argument Check Test
          */
         try {
-            ElementFilterUtil.filterFirst((Iterable<?>) null, new ElementFilterUtil.Filter<Object>() {
+            ElementFilter.filterFirst((Iterable<?>) null, new ElementFilter.Filter<Object>() {
                 @Override
                 public boolean isAccept(Object o) {
                     return false;
                 }
-            }, new ElementFilterUtil.Converter<Object, Object>() {
+            }, new ElementFilter.Converter<Object, Object>() {
                 @Override
                 public Object convert(Object o) {
                     return null;
@@ -174,7 +174,7 @@ public class ElementFilterUtilTest {
         }
 
         try {
-            ElementFilterUtil.filterFirst(testList, null, new ElementFilterUtil.Converter<String, Object>() {
+            ElementFilter.filterFirst(testList, null, new ElementFilter.Converter<String, Object>() {
                 @Override
                 public Object convert(String s) {
                     return null;
@@ -187,7 +187,7 @@ public class ElementFilterUtilTest {
         }
 
         try {
-            ElementFilterUtil.filterFirst(testList, new ElementFilterUtil.Filter<String>() {
+            ElementFilter.filterFirst(testList, new ElementFilter.Filter<String>() {
                 @Override
                 public boolean isAccept(String s) {
                     return false;
@@ -202,12 +202,12 @@ public class ElementFilterUtilTest {
         /*
         feature test
          */
-        Integer result7 = ElementFilterUtil.filterFirst(testList, new ElementFilterUtil.Filter<String>() {
+        Integer result7 = ElementFilter.filterFirst(testList, new ElementFilter.Filter<String>() {
             @Override
             public boolean isAccept(String s) {
                 return "7".equals(s);
             }
-        }, new ElementFilterUtil.Converter<String, Integer>() {
+        }, new ElementFilter.Converter<String, Integer>() {
             @Override
             public Integer convert(String s) {
                 return Integer.parseInt(s);
@@ -216,12 +216,12 @@ public class ElementFilterUtilTest {
 
         assertThat(result7, CoreMatchers.is(7));
 
-        Integer result11 = ElementFilterUtil.filterFirst(testList, new ElementFilterUtil.Filter<String>() {
+        Integer result11 = ElementFilter.filterFirst(testList, new ElementFilter.Filter<String>() {
             @Override
             public boolean isAccept(String s) {
                 return "11".equals(s);
             }
-        }, new ElementFilterUtil.Converter<String, Integer>() {
+        }, new ElementFilter.Converter<String, Integer>() {
             @Override
             public Integer convert(String s) {
                 return Integer.parseInt(s);
@@ -236,7 +236,7 @@ public class ElementFilterUtilTest {
         Argument Check Test
          */
         try {
-            ElementFilterUtil.filterFirst((Object[]) null, new ElementFilterUtil.Filter<Object>() {
+            ElementFilter.filterFirst((Object[]) null, new ElementFilter.Filter<Object>() {
                 @Override
                 public boolean isAccept(Object o) {
                     return false;
@@ -249,7 +249,7 @@ public class ElementFilterUtilTest {
         }
 
         try {
-            ElementFilterUtil.filterFirst(testArray, null);
+            ElementFilter.filterFirst(testArray, null);
 
             fail();
         } catch (IllegalArgumentException e) {
@@ -259,7 +259,7 @@ public class ElementFilterUtilTest {
         /*
         feature test
          */
-        String result7 = ElementFilterUtil.filterFirst(testArray, new ElementFilterUtil.Filter<String>() {
+        String result7 = ElementFilter.filterFirst(testArray, new ElementFilter.Filter<String>() {
             @Override
             public boolean isAccept(String s) {
                 return "7".equals(s);
@@ -267,7 +267,7 @@ public class ElementFilterUtilTest {
         });
         assertThat(result7, CoreMatchers.equalTo("7"));
 
-        String result11 = ElementFilterUtil.filterFirst(testArray, new ElementFilterUtil.Filter<String>() {
+        String result11 = ElementFilter.filterFirst(testArray, new ElementFilter.Filter<String>() {
             @Override
             public boolean isAccept(String s) {
                 return "11".equals(s);
@@ -282,12 +282,12 @@ public class ElementFilterUtilTest {
         Argument Check Test
          */
         try {
-            ElementFilterUtil.filterFirst((Object[]) null, new ElementFilterUtil.Filter<Object>() {
+            ElementFilter.filterFirst((Object[]) null, new ElementFilter.Filter<Object>() {
                 @Override
                 public boolean isAccept(Object o) {
                     return false;
                 }
-            }, new ElementFilterUtil.Converter<Object, Object>() {
+            }, new ElementFilter.Converter<Object, Object>() {
                 @Override
                 public Object convert(Object o) {
                     return null;
@@ -300,7 +300,7 @@ public class ElementFilterUtilTest {
         }
 
         try {
-            ElementFilterUtil.filterFirst(testArray, null, new ElementFilterUtil.Converter<String, Object>() {
+            ElementFilter.filterFirst(testArray, null, new ElementFilter.Converter<String, Object>() {
                 @Override
                 public Object convert(String s) {
                     return null;
@@ -313,7 +313,7 @@ public class ElementFilterUtilTest {
         }
 
         try {
-            ElementFilterUtil.filterFirst(testArray, new ElementFilterUtil.Filter<String>() {
+            ElementFilter.filterFirst(testArray, new ElementFilter.Filter<String>() {
                 @Override
                 public boolean isAccept(String s) {
                     return false;
@@ -328,12 +328,12 @@ public class ElementFilterUtilTest {
         /*
         feature test
          */
-        Integer result7 = ElementFilterUtil.filterFirst(testArray, new ElementFilterUtil.Filter<String>() {
+        Integer result7 = ElementFilter.filterFirst(testArray, new ElementFilter.Filter<String>() {
             @Override
             public boolean isAccept(String s) {
                 return "7".equals(s);
             }
-        }, new ElementFilterUtil.Converter<String, Integer>() {
+        }, new ElementFilter.Converter<String, Integer>() {
             @Override
             public Integer convert(String s) {
                 return Integer.parseInt(s);
@@ -342,12 +342,12 @@ public class ElementFilterUtilTest {
 
         assertThat(result7, CoreMatchers.is(7));
 
-        Integer result11 = ElementFilterUtil.filterFirst(testArray, new ElementFilterUtil.Filter<String>() {
+        Integer result11 = ElementFilter.filterFirst(testArray, new ElementFilter.Filter<String>() {
             @Override
             public boolean isAccept(String s) {
                 return "11".equals(s);
             }
-        }, new ElementFilterUtil.Converter<String, Integer>() {
+        }, new ElementFilter.Converter<String, Integer>() {
             @Override
             public Integer convert(String s) {
                 return Integer.parseInt(s);
@@ -365,21 +365,21 @@ public class ElementFilterUtilTest {
 
         // sources be null
         try {
-            ElementFilterUtil.convert((String[])null, (ArrayList<Integer>)null, (ElementFilterUtil.Converter<String, Integer>)null);
+            ElementFilter.convert((String[])null, (ArrayList<Integer>)null, (ElementFilter.Converter<String, Integer>)null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // result container be null
         try {
-            ElementFilterUtil.convert(testArray, (ArrayList<Integer>)null, (ElementFilterUtil.Converter<String, Integer>)null);
+            ElementFilter.convert(testArray, (ArrayList<Integer>)null, (ElementFilter.Converter<String, Integer>)null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // converter be null
         try {
-            ElementFilterUtil.convert(testArray, new ArrayList<Integer>(), (ElementFilterUtil.Converter<String, Integer>)null);
+            ElementFilter.convert(testArray, new ArrayList<Integer>(), (ElementFilter.Converter<String, Integer>)null);
             fail();
         } catch (IllegalArgumentException e) {
         }
@@ -387,10 +387,10 @@ public class ElementFilterUtilTest {
         /*
         feature test
          */
-        ArrayList<Integer> resultContainer = ElementFilterUtil.convert(
+        ArrayList<Integer> resultContainer = ElementFilter.convert(
                 testArray,
                 new ArrayList<Integer>(testArray.length),
-                new ElementFilterUtil.Converter<String, Integer>() {
+                new ElementFilter.Converter<String, Integer>() {
                     @Override
                     public Integer convert(String s) {
                         return Integer.parseInt(s);
@@ -417,21 +417,21 @@ public class ElementFilterUtilTest {
 
         // sources be null
         try {
-            ElementFilterUtil.convert((Iterable<String>)null, (ArrayList<Integer>)null, (ElementFilterUtil.Converter<String, Integer>)null);
+            ElementFilter.convert((Iterable<String>)null, (ArrayList<Integer>)null, (ElementFilter.Converter<String, Integer>)null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // result container be null
         try {
-            ElementFilterUtil.convert(testList, (ArrayList<Integer>)null, (ElementFilterUtil.Converter<String, Integer>)null);
+            ElementFilter.convert(testList, (ArrayList<Integer>)null, (ElementFilter.Converter<String, Integer>)null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // converter be null
         try {
-            ElementFilterUtil.convert(testList, new ArrayList<Integer>(), (ElementFilterUtil.Converter<String, Integer>)null);
+            ElementFilter.convert(testList, new ArrayList<Integer>(), (ElementFilter.Converter<String, Integer>)null);
             fail();
         } catch (IllegalArgumentException e) {
         }
@@ -439,10 +439,10 @@ public class ElementFilterUtilTest {
         /*
         feature test
          */
-        ArrayList<Integer> resultContainer = ElementFilterUtil.convert(
+        ArrayList<Integer> resultContainer = ElementFilter.convert(
                 testList,
                 new ArrayList<Integer>(testList.size()),
-                new ElementFilterUtil.Converter<String, Integer>() {
+                new ElementFilter.Converter<String, Integer>() {
                     @Override
                     public Integer convert(String s) {
                         return Integer.parseInt(s);
@@ -469,21 +469,21 @@ public class ElementFilterUtilTest {
 
         // sources be null
         try {
-            ElementFilterUtil.convert((String[])null, (Class<Integer>)null, (ElementFilterUtil.Converter<String, Integer>)null);
+            ElementFilter.convert((String[])null, (Class<Integer>)null, (ElementFilter.Converter<String, Integer>)null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // result container be null
         try {
-            ElementFilterUtil.convert(testArray, (Class<Integer>)null, (ElementFilterUtil.Converter<String, Integer>)null);
+            ElementFilter.convert(testArray, (Class<Integer>)null, (ElementFilter.Converter<String, Integer>)null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // converter be null
         try {
-            ElementFilterUtil.convert(testArray, Integer.class, (ElementFilterUtil.Converter<String, Integer>)null);
+            ElementFilter.convert(testArray, Integer.class, (ElementFilter.Converter<String, Integer>)null);
             fail();
         } catch (IllegalArgumentException e) {
         }
@@ -491,10 +491,10 @@ public class ElementFilterUtilTest {
         /*
         feature test
          */
-        Integer[] resultContainer = ElementFilterUtil.convert(
+        Integer[] resultContainer = ElementFilter.convert(
                 testArray,
                 Integer.class,
-                new ElementFilterUtil.Converter<String, Integer>() {
+                new ElementFilter.Converter<String, Integer>() {
                     @Override
                     public Integer convert(String s) {
                         return Integer.parseInt(s);
@@ -521,21 +521,21 @@ public class ElementFilterUtilTest {
 
         // sources be null
         try {
-            ElementFilterUtil.convert((String[])null, (Integer[])null, (ElementFilterUtil.Converter<String, Integer>)null);
+            ElementFilter.convert((String[])null, (Integer[])null, (ElementFilter.Converter<String, Integer>)null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // result container be null
         try {
-            ElementFilterUtil.convert(testArray, (Integer[])null, (ElementFilterUtil.Converter<String, Integer>)null);
+            ElementFilter.convert(testArray, (Integer[])null, (ElementFilter.Converter<String, Integer>)null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // converter be null
         try {
-            ElementFilterUtil.convert(testArray, new Integer[1], (ElementFilterUtil.Converter<String, Integer>)null);
+            ElementFilter.convert(testArray, new Integer[1], (ElementFilter.Converter<String, Integer>)null);
             fail();
         } catch (IllegalArgumentException e) {
         }
@@ -544,10 +544,10 @@ public class ElementFilterUtilTest {
         feature test
          */
 
-        Integer[] resultContainer = ElementFilterUtil.convert(
+        Integer[] resultContainer = ElementFilter.convert(
                 testArray,
                 new Integer[testArray.length],
-                new ElementFilterUtil.Converter<String, Integer>() {
+                new ElementFilter.Converter<String, Integer>() {
                     @Override
                     public Integer convert(String s) {
                         return Integer.parseInt(s);
@@ -569,10 +569,10 @@ public class ElementFilterUtilTest {
          */
         // when result container less result num
         try {
-            ElementFilterUtil.convert(
+            ElementFilter.convert(
                     testArray,
                     new Integer[testArray.length - 1],
-                    new ElementFilterUtil.Converter<String, Integer>() {
+                    new ElementFilter.Converter<String, Integer>() {
                         @Override
                         public Integer convert(String s) {
                             return Integer.parseInt(s);
@@ -595,21 +595,21 @@ public class ElementFilterUtilTest {
 
         // sources be null
         try {
-            ElementFilterUtil.convert((Collection<String>)null, (Class<Integer>)null, (ElementFilterUtil.Converter<String, Integer>)null);
+            ElementFilter.convert((Collection<String>)null, (Class<Integer>)null, (ElementFilter.Converter<String, Integer>)null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // result container be null
         try {
-            ElementFilterUtil.convert(testList, (Class<Integer>)null, (ElementFilterUtil.Converter<String, Integer>)null);
+            ElementFilter.convert(testList, (Class<Integer>)null, (ElementFilter.Converter<String, Integer>)null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // converter be null
         try {
-            ElementFilterUtil.convert(testList, Integer.class, (ElementFilterUtil.Converter<String, Integer>)null);
+            ElementFilter.convert(testList, Integer.class, (ElementFilter.Converter<String, Integer>)null);
             fail();
         } catch (IllegalArgumentException e) {
         }
@@ -617,10 +617,10 @@ public class ElementFilterUtilTest {
         /*
         feature test
          */
-        Integer[] resultContainer = ElementFilterUtil.convert(
+        Integer[] resultContainer = ElementFilter.convert(
                 testList,
                 Integer.class,
-                new ElementFilterUtil.Converter<String, Integer>() {
+                new ElementFilter.Converter<String, Integer>() {
                     @Override
                     public Integer convert(String s) {
                         return Integer.parseInt(s);
@@ -647,21 +647,21 @@ public class ElementFilterUtilTest {
 
         // sources be null
         try {
-            ElementFilterUtil.convert((Iterable<String>)null, (Integer[])null, (ElementFilterUtil.Converter<String, Integer>)null);
+            ElementFilter.convert((Iterable<String>)null, (Integer[])null, (ElementFilter.Converter<String, Integer>)null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // result container be null
         try {
-            ElementFilterUtil.convert(testList, (Integer[])null, (ElementFilterUtil.Converter<String, Integer>)null);
+            ElementFilter.convert(testList, (Integer[])null, (ElementFilter.Converter<String, Integer>)null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // converter be null
         try {
-            ElementFilterUtil.convert(testList, new Integer[1], (ElementFilterUtil.Converter<String, Integer>)null);
+            ElementFilter.convert(testList, new Integer[1], (ElementFilter.Converter<String, Integer>)null);
             fail();
         } catch (IllegalArgumentException e) {
         }
@@ -669,10 +669,10 @@ public class ElementFilterUtilTest {
         /*
         feature test
          */
-        Integer[] resultContainer = ElementFilterUtil.convert(
+        Integer[] resultContainer = ElementFilter.convert(
                 testList,
                 new Integer[testList.size()],
-                new ElementFilterUtil.Converter<String, Integer>() {
+                new ElementFilter.Converter<String, Integer>() {
                     @Override
                     public Integer convert(String s) {
                         return Integer.parseInt(s);
@@ -694,10 +694,10 @@ public class ElementFilterUtilTest {
          */
         // when result container less result num
         try {
-            ElementFilterUtil.convert(
+            ElementFilter.convert(
                     testList,
                     new Integer[testList.size() - 1],
-                    new ElementFilterUtil.Converter<String, Integer>() {
+                    new ElementFilter.Converter<String, Integer>() {
                         @Override
                         public Integer convert(String s) {
                             return Integer.parseInt(s);
@@ -717,7 +717,7 @@ public class ElementFilterUtilTest {
          */
         {
             // unlimit result num
-            ArrayList<String> resultContainer = ElementFilterUtil.filter(testArray, new ArrayList<String>(), new ElementFilterUtil.Filter<String>() {
+            ArrayList<String> resultContainer = ElementFilter.filter(testArray, new ArrayList<String>(), new ElementFilter.Filter<String>() {
                 @Override
                 public boolean isAccept(String s) {
                     return "7".equals(s);
@@ -738,21 +738,21 @@ public class ElementFilterUtilTest {
         */
         // sources be null
         try {
-            ElementFilterUtil.filter((String[]) null, (ArrayList<String>) null, (ElementFilterUtil.Filter<String>) null);
+            ElementFilter.filter((String[]) null, (ArrayList<String>) null, (ElementFilter.Filter<String>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // container be null
         try {
-            ElementFilterUtil.filter(testArray, (ArrayList<String>) null, (ElementFilterUtil.Filter<String>) null);
+            ElementFilter.filter(testArray, (ArrayList<String>) null, (ElementFilter.Filter<String>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // filter be null
         try {
-            ElementFilterUtil.filter(testArray, new ArrayList<String>(), (ElementFilterUtil.Filter<String>) null);
+            ElementFilter.filter(testArray, new ArrayList<String>(), (ElementFilter.Filter<String>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
@@ -764,7 +764,7 @@ public class ElementFilterUtilTest {
         feature test
         */
         {
-            ArrayList<String> resultContainer = ElementFilterUtil.filter(testList, new ArrayList<String>(), new ElementFilterUtil.Filter<String>() {
+            ArrayList<String> resultContainer = ElementFilter.filter(testList, new ArrayList<String>(), new ElementFilter.Filter<String>() {
                 @Override
                 public boolean isAccept(String s) {
                     return "7".equals(s);
@@ -785,21 +785,21 @@ public class ElementFilterUtilTest {
          */
         // sources be null
         try {
-            ElementFilterUtil.filter((Iterable<String>) null, (ArrayList<String>) null, (ElementFilterUtil.Filter<String>) null);
+            ElementFilter.filter((Iterable<String>) null, (ArrayList<String>) null, (ElementFilter.Filter<String>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // container be null
         try {
-            ElementFilterUtil.filter(testList, (ArrayList<String>) null, (ElementFilterUtil.Filter<String>) null);
+            ElementFilter.filter(testList, (ArrayList<String>) null, (ElementFilter.Filter<String>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // filter be null
         try {
-            ElementFilterUtil.filter(testList, new ArrayList<String>(), (ElementFilterUtil.Filter<String>) null);
+            ElementFilter.filter(testList, new ArrayList<String>(), (ElementFilter.Filter<String>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
@@ -811,7 +811,7 @@ public class ElementFilterUtilTest {
         feature test
          */
         {
-            String[] resultContainer = ElementFilterUtil.filter(testArray, new String[7], new ElementFilterUtil.Filter<String>() {
+            String[] resultContainer = ElementFilter.filter(testArray, new String[7], new ElementFilter.Filter<String>() {
                 @Override
                 public boolean isAccept(String s) {
                     return "7".equals(s);
@@ -830,7 +830,7 @@ public class ElementFilterUtilTest {
         {
             // array length not enough
             try {
-                ElementFilterUtil.filter(testArray, new String[4], new ElementFilterUtil.Filter<String>() {
+                ElementFilter.filter(testArray, new String[4], new ElementFilter.Filter<String>() {
                     @Override
                     public boolean isAccept(String s) {
                         return "7".equals(s);
@@ -847,21 +847,21 @@ public class ElementFilterUtilTest {
         */
         // sources be null
         try {
-            ElementFilterUtil.filter((String[]) null, (String[]) null, (ElementFilterUtil.Filter<String>) null);
+            ElementFilter.filter((String[]) null, (String[]) null, (ElementFilter.Filter<String>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // container be null
         try {
-            ElementFilterUtil.filter(testArray, (String[]) null, (ElementFilterUtil.Filter<String>) null);
+            ElementFilter.filter(testArray, (String[]) null, (ElementFilter.Filter<String>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // filter be null
         try {
-            ElementFilterUtil.filter(testArray, new String[1], (ElementFilterUtil.Filter<String>) null);
+            ElementFilter.filter(testArray, new String[1], (ElementFilter.Filter<String>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
@@ -873,7 +873,7 @@ public class ElementFilterUtilTest {
         feature test
          */
         {
-            String[] resultContainer = ElementFilterUtil.filter(testList, new String[7], new ElementFilterUtil.Filter<String>() {
+            String[] resultContainer = ElementFilter.filter(testList, new String[7], new ElementFilter.Filter<String>() {
                 @Override
                 public boolean isAccept(String s) {
                     return "7".equals(s);
@@ -892,7 +892,7 @@ public class ElementFilterUtilTest {
         {
             // array length not enough
             try {
-                ElementFilterUtil.filter(testList, new String[4], new ElementFilterUtil.Filter<String>() {
+                ElementFilter.filter(testList, new String[4], new ElementFilter.Filter<String>() {
                     @Override
                     public boolean isAccept(String s) {
                         return "7".equals(s);
@@ -909,21 +909,21 @@ public class ElementFilterUtilTest {
          */
         // sources be null
         try {
-            ElementFilterUtil.filter((Iterable<String>) null, (String[]) null, (ElementFilterUtil.Filter<String>) null);
+            ElementFilter.filter((Iterable<String>) null, (String[]) null, (ElementFilter.Filter<String>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // container be null
         try {
-            ElementFilterUtil.filter(testList, (String[]) null, (ElementFilterUtil.Filter<String>) null);
+            ElementFilter.filter(testList, (String[]) null, (ElementFilter.Filter<String>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // filter be null
         try {
-            ElementFilterUtil.filter(testList, new String[1], (ElementFilterUtil.Filter<String>) null);
+            ElementFilter.filter(testList, new String[1], (ElementFilter.Filter<String>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
@@ -936,12 +936,12 @@ public class ElementFilterUtilTest {
          */
         {
             // unlimit result num
-            ArrayList<Integer> resultContainer = ElementFilterUtil.filter(testArray, new ArrayList<Integer>(), new ElementFilterUtil.Filter<String>() {
+            ArrayList<Integer> resultContainer = ElementFilter.filter(testArray, new ArrayList<Integer>(), new ElementFilter.Filter<String>() {
                 @Override
                 public boolean isAccept(String s) {
                     return "7".equals(s);
                 }
-            }, new ElementFilterUtil.Converter<String, Integer>() {
+            }, new ElementFilter.Converter<String, Integer>() {
                 @Override
                 public Integer convert(String s) {
                     return Integer.parseInt(s);
@@ -962,33 +962,33 @@ public class ElementFilterUtilTest {
         */
         // sources be null
         try {
-            ElementFilterUtil.filter((String[]) null, (ArrayList<Integer>) null, (ElementFilterUtil.Filter<String>) null, (ElementFilterUtil.Converter<String, Integer>) null);
+            ElementFilter.filter((String[]) null, (ArrayList<Integer>) null, (ElementFilter.Filter<String>) null, (ElementFilter.Converter<String, Integer>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // container be null
         try {
-            ElementFilterUtil.filter(testArray, (ArrayList<Integer>) null, (ElementFilterUtil.Filter<String>) null, (ElementFilterUtil.Converter<String, Integer>) null);
+            ElementFilter.filter(testArray, (ArrayList<Integer>) null, (ElementFilter.Filter<String>) null, (ElementFilter.Converter<String, Integer>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // filter be null
         try {
-            ElementFilterUtil.filter(testArray, new ArrayList<Integer>(), (ElementFilterUtil.Filter<String>) null, (ElementFilterUtil.Converter<String, Integer>) null);
+            ElementFilter.filter(testArray, new ArrayList<Integer>(), (ElementFilter.Filter<String>) null, (ElementFilter.Converter<String, Integer>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // converter be null
         try {
-            ElementFilterUtil.filter(testArray, new ArrayList<Integer>(), new ElementFilterUtil.Filter<String>() {
+            ElementFilter.filter(testArray, new ArrayList<Integer>(), new ElementFilter.Filter<String>() {
                 @Override
                 public boolean isAccept(String s) {
                     return false;
                 }
-            }, (ElementFilterUtil.Converter<String, Integer>) null);
+            }, (ElementFilter.Converter<String, Integer>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
@@ -1000,12 +1000,12 @@ public class ElementFilterUtilTest {
         feature test
          */
         {
-            ArrayList<Integer> resultContainer = ElementFilterUtil.filter(testList, new ArrayList<Integer>(), new ElementFilterUtil.Filter<String>() {
+            ArrayList<Integer> resultContainer = ElementFilter.filter(testList, new ArrayList<Integer>(), new ElementFilter.Filter<String>() {
                 @Override
                 public boolean isAccept(String s) {
                     return "7".equals(s);
                 }
-            }, new ElementFilterUtil.Converter<String, Integer>() {
+            }, new ElementFilter.Converter<String, Integer>() {
                 @Override
                 public Integer convert(String s) {
                     return Integer.parseInt(s);
@@ -1026,33 +1026,33 @@ public class ElementFilterUtilTest {
          */
         // sources be null
         try {
-            ElementFilterUtil.filter((Iterable<String>) null, (ArrayList<Integer>) null, (ElementFilterUtil.Filter<String>) null, (ElementFilterUtil.Converter<String, Integer>) null);
+            ElementFilter.filter((Iterable<String>) null, (ArrayList<Integer>) null, (ElementFilter.Filter<String>) null, (ElementFilter.Converter<String, Integer>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // container be null
         try {
-            ElementFilterUtil.filter(testList, (ArrayList<Integer>) null, (ElementFilterUtil.Filter<String>) null, (ElementFilterUtil.Converter<String, Integer>) null);
+            ElementFilter.filter(testList, (ArrayList<Integer>) null, (ElementFilter.Filter<String>) null, (ElementFilter.Converter<String, Integer>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // filter be null
         try {
-            ElementFilterUtil.filter(testList, new ArrayList<Integer>(), (ElementFilterUtil.Filter<String>) null, (ElementFilterUtil.Converter<String, Integer>) null);
+            ElementFilter.filter(testList, new ArrayList<Integer>(), (ElementFilter.Filter<String>) null, (ElementFilter.Converter<String, Integer>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // converter be null
         try {
-            ElementFilterUtil.filter(testList, new ArrayList<Integer>(), new ElementFilterUtil.Filter<String>() {
+            ElementFilter.filter(testList, new ArrayList<Integer>(), new ElementFilter.Filter<String>() {
                 @Override
                 public boolean isAccept(String s) {
                     return false;
                 }
-            }, (ElementFilterUtil.Converter<String, Integer>) null);
+            }, (ElementFilter.Converter<String, Integer>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
@@ -1064,12 +1064,12 @@ public class ElementFilterUtilTest {
         feature test
          */
         {
-            Integer[] resultContainer = ElementFilterUtil.filter(testArray, new Integer[7], new ElementFilterUtil.Filter<String>() {
+            Integer[] resultContainer = ElementFilter.filter(testArray, new Integer[7], new ElementFilter.Filter<String>() {
                 @Override
                 public boolean isAccept(String s) {
                     return "7".equals(s);
                 }
-            }, new ElementFilterUtil.Converter<String, Integer>() {
+            }, new ElementFilter.Converter<String, Integer>() {
                 @Override
                 public Integer convert(String s) {
                     return Integer.parseInt(s);
@@ -1088,12 +1088,12 @@ public class ElementFilterUtilTest {
         {
             // array length not enough
             try {
-                ElementFilterUtil.filter(testArray, new Integer[4], new ElementFilterUtil.Filter<String>() {
+                ElementFilter.filter(testArray, new Integer[4], new ElementFilter.Filter<String>() {
                     @Override
                     public boolean isAccept(String s) {
                         return "7".equals(s);
                     }
-                }, new ElementFilterUtil.Converter<String, Integer>() {
+                }, new ElementFilter.Converter<String, Integer>() {
                     @Override
                     public Integer convert(String s) {
                         return Integer.parseInt(s);
@@ -1110,33 +1110,33 @@ public class ElementFilterUtilTest {
         */
         // sources be null
         try {
-            ElementFilterUtil.filter((String[]) null, (Integer[]) null, (ElementFilterUtil.Filter<String>) null, (ElementFilterUtil.Converter<String, Integer>) null);
+            ElementFilter.filter((String[]) null, (Integer[]) null, (ElementFilter.Filter<String>) null, (ElementFilter.Converter<String, Integer>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // container be null
         try {
-            ElementFilterUtil.filter(testArray, (Integer[]) null, (ElementFilterUtil.Filter<String>) null, (ElementFilterUtil.Converter<String, Integer>) null);
+            ElementFilter.filter(testArray, (Integer[]) null, (ElementFilter.Filter<String>) null, (ElementFilter.Converter<String, Integer>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // filter be null
         try {
-            ElementFilterUtil.filter(testArray, new Integer[1], (ElementFilterUtil.Filter<String>) null, (ElementFilterUtil.Converter<String, Integer>) null);
+            ElementFilter.filter(testArray, new Integer[1], (ElementFilter.Filter<String>) null, (ElementFilter.Converter<String, Integer>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // converter be null
         try {
-            ElementFilterUtil.filter(testArray, new Integer[1], new ElementFilterUtil.Filter<String>() {
+            ElementFilter.filter(testArray, new Integer[1], new ElementFilter.Filter<String>() {
                 @Override
                 public boolean isAccept(String s) {
                     return false;
                 }
-            }, (ElementFilterUtil.Converter<String, Integer>) null);
+            }, (ElementFilter.Converter<String, Integer>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
@@ -1149,12 +1149,12 @@ public class ElementFilterUtilTest {
          */
         {
             // unlimit result num
-            Integer[] resultContainer = ElementFilterUtil.filter(testList, new Integer[7], new ElementFilterUtil.Filter<String>() {
+            Integer[] resultContainer = ElementFilter.filter(testList, new Integer[7], new ElementFilter.Filter<String>() {
                 @Override
                 public boolean isAccept(String s) {
                     return "7".equals(s);
                 }
-            }, new ElementFilterUtil.Converter<String, Integer>() {
+            }, new ElementFilter.Converter<String, Integer>() {
                 @Override
                 public Integer convert(String s) {
                     return Integer.parseInt(s);
@@ -1173,12 +1173,12 @@ public class ElementFilterUtilTest {
         {
             // array length not enough
             try {
-                ElementFilterUtil.filter(testList, new Integer[4], new ElementFilterUtil.Filter<String>() {
+                ElementFilter.filter(testList, new Integer[4], new ElementFilter.Filter<String>() {
                     @Override
                     public boolean isAccept(String s) {
                         return "7".equals(s);
                     }
-                }, new ElementFilterUtil.Converter<String, Integer>() {
+                }, new ElementFilter.Converter<String, Integer>() {
                     @Override
                     public Integer convert(String s) {
                         return Integer.parseInt(s);
@@ -1195,33 +1195,33 @@ public class ElementFilterUtilTest {
          */
         // sources be null
         try {
-            ElementFilterUtil.filter((Iterable<String>) null, (Integer[]) null, (ElementFilterUtil.Filter<String>) null, (ElementFilterUtil.Converter<String, Integer>) null);
+            ElementFilter.filter((Iterable<String>) null, (Integer[]) null, (ElementFilter.Filter<String>) null, (ElementFilter.Converter<String, Integer>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // container be null
         try {
-            ElementFilterUtil.filter(testList, (Integer[]) null, (ElementFilterUtil.Filter<String>) null, (ElementFilterUtil.Converter<String, Integer>) null);
+            ElementFilter.filter(testList, (Integer[]) null, (ElementFilter.Filter<String>) null, (ElementFilter.Converter<String, Integer>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // filter be null
         try {
-            ElementFilterUtil.filter(testList, new Integer[1], (ElementFilterUtil.Filter<String>) null, (ElementFilterUtil.Converter<String, Integer>) null);
+            ElementFilter.filter(testList, new Integer[1], (ElementFilter.Filter<String>) null, (ElementFilter.Converter<String, Integer>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // converter be null
         try {
-            ElementFilterUtil.filter(testList, new Integer[1], new ElementFilterUtil.Filter<String>() {
+            ElementFilter.filter(testList, new Integer[1], new ElementFilter.Filter<String>() {
                 @Override
                 public boolean isAccept(String s) {
                     return false;
                 }
-            }, (ElementFilterUtil.Converter<String, Integer>) null);
+            }, (ElementFilter.Converter<String, Integer>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
@@ -1235,12 +1235,12 @@ public class ElementFilterUtilTest {
          */
         {
             // unlimit result num
-            ArrayList<Integer> resultContainer = ElementFilterUtil.filter(ElementFilterUtil.FILTER_ELEMENT_NUM_UNLIMIT, testArray, new ArrayList<Integer>(), new ElementFilterUtil.Filter<String>() {
+            ArrayList<Integer> resultContainer = ElementFilter.filter(ElementFilter.FILTER_ELEMENT_NUM_UNLIMIT, testArray, new ArrayList<Integer>(), new ElementFilter.Filter<String>() {
                 @Override
                 public boolean isAccept(String s) {
                     return "7".equals(s);
                 }
-            }, new ElementFilterUtil.Converter<String, Integer>() {
+            }, new ElementFilter.Converter<String, Integer>() {
                 @Override
                 public Integer convert(String s) {
                     return Integer.parseInt(s);
@@ -1258,12 +1258,12 @@ public class ElementFilterUtilTest {
 
         {
             // limit 5 result
-            ArrayList<Integer> resultContainer = ElementFilterUtil.filter(5, testArray, new ArrayList<Integer>(), new ElementFilterUtil.Filter<String>() {
+            ArrayList<Integer> resultContainer = ElementFilter.filter(5, testArray, new ArrayList<Integer>(), new ElementFilter.Filter<String>() {
                 @Override
                 public boolean isAccept(String s) {
                     return "7".equals(s);
                 }
-            }, new ElementFilterUtil.Converter<String, Integer>() {
+            }, new ElementFilter.Converter<String, Integer>() {
                 @Override
                 public Integer convert(String s) {
                     return Integer.parseInt(s);
@@ -1284,40 +1284,40 @@ public class ElementFilterUtilTest {
         */
         // limit result count less -1
         try {
-            ElementFilterUtil.filter(-2, (String[]) null, (ArrayList<Integer>) null, (ElementFilterUtil.Filter<String>) null, (ElementFilterUtil.Converter<String, Integer>) null);
+            ElementFilter.filter(-2, (String[]) null, (ArrayList<Integer>) null, (ElementFilter.Filter<String>) null, (ElementFilter.Converter<String, Integer>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // sources be null
         try {
-            ElementFilterUtil.filter(ElementFilterUtil.FILTER_ELEMENT_NUM_UNLIMIT, (String[]) null, (ArrayList<Integer>) null, (ElementFilterUtil.Filter<String>) null, (ElementFilterUtil.Converter<String, Integer>) null);
+            ElementFilter.filter(ElementFilter.FILTER_ELEMENT_NUM_UNLIMIT, (String[]) null, (ArrayList<Integer>) null, (ElementFilter.Filter<String>) null, (ElementFilter.Converter<String, Integer>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // container be null
         try {
-            ElementFilterUtil.filter(ElementFilterUtil.FILTER_ELEMENT_NUM_UNLIMIT, testArray, (ArrayList<Integer>) null, (ElementFilterUtil.Filter<String>) null, (ElementFilterUtil.Converter<String, Integer>) null);
+            ElementFilter.filter(ElementFilter.FILTER_ELEMENT_NUM_UNLIMIT, testArray, (ArrayList<Integer>) null, (ElementFilter.Filter<String>) null, (ElementFilter.Converter<String, Integer>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // filter be null
         try {
-            ElementFilterUtil.filter(ElementFilterUtil.FILTER_ELEMENT_NUM_UNLIMIT, testArray, new ArrayList<Integer>(), (ElementFilterUtil.Filter<String>) null, (ElementFilterUtil.Converter<String, Integer>) null);
+            ElementFilter.filter(ElementFilter.FILTER_ELEMENT_NUM_UNLIMIT, testArray, new ArrayList<Integer>(), (ElementFilter.Filter<String>) null, (ElementFilter.Converter<String, Integer>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // converter be null
         try {
-            ElementFilterUtil.filter(ElementFilterUtil.FILTER_ELEMENT_NUM_UNLIMIT, testArray, new ArrayList<Integer>(), new ElementFilterUtil.Filter<String>() {
+            ElementFilter.filter(ElementFilter.FILTER_ELEMENT_NUM_UNLIMIT, testArray, new ArrayList<Integer>(), new ElementFilter.Filter<String>() {
                 @Override
                 public boolean isAccept(String s) {
                     return false;
                 }
-            }, (ElementFilterUtil.Converter<String, Integer>) null);
+            }, (ElementFilter.Converter<String, Integer>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
@@ -1330,12 +1330,12 @@ public class ElementFilterUtilTest {
          */
         {
             // unlimit result num
-            ArrayList<Integer> resultContainer = ElementFilterUtil.filter(ElementFilterUtil.FILTER_ELEMENT_NUM_UNLIMIT, testList, new ArrayList<Integer>(), new ElementFilterUtil.Filter<String>() {
+            ArrayList<Integer> resultContainer = ElementFilter.filter(ElementFilter.FILTER_ELEMENT_NUM_UNLIMIT, testList, new ArrayList<Integer>(), new ElementFilter.Filter<String>() {
                 @Override
                 public boolean isAccept(String s) {
                     return "7".equals(s);
                 }
-            }, new ElementFilterUtil.Converter<String, Integer>() {
+            }, new ElementFilter.Converter<String, Integer>() {
                 @Override
                 public Integer convert(String s) {
                     return Integer.parseInt(s);
@@ -1353,12 +1353,12 @@ public class ElementFilterUtilTest {
 
         {
             // limit 5 result
-            ArrayList<Integer> resultContainer = ElementFilterUtil.filter(5, testList, new ArrayList<Integer>(), new ElementFilterUtil.Filter<String>() {
+            ArrayList<Integer> resultContainer = ElementFilter.filter(5, testList, new ArrayList<Integer>(), new ElementFilter.Filter<String>() {
                 @Override
                 public boolean isAccept(String s) {
                     return "7".equals(s);
                 }
-            }, new ElementFilterUtil.Converter<String, Integer>() {
+            }, new ElementFilter.Converter<String, Integer>() {
                 @Override
                 public Integer convert(String s) {
                     return Integer.parseInt(s);
@@ -1379,40 +1379,40 @@ public class ElementFilterUtilTest {
          */
         // limit result count less -1
         try {
-            ElementFilterUtil.filter(-2, (Iterable<String>) null, (ArrayList<Integer>) null, (ElementFilterUtil.Filter<String>) null, (ElementFilterUtil.Converter<String, Integer>) null);
+            ElementFilter.filter(-2, (Iterable<String>) null, (ArrayList<Integer>) null, (ElementFilter.Filter<String>) null, (ElementFilter.Converter<String, Integer>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // sources be null
         try {
-            ElementFilterUtil.filter(ElementFilterUtil.FILTER_ELEMENT_NUM_UNLIMIT, (Iterable<String>) null, (ArrayList<Integer>) null, (ElementFilterUtil.Filter<String>) null, (ElementFilterUtil.Converter<String, Integer>) null);
+            ElementFilter.filter(ElementFilter.FILTER_ELEMENT_NUM_UNLIMIT, (Iterable<String>) null, (ArrayList<Integer>) null, (ElementFilter.Filter<String>) null, (ElementFilter.Converter<String, Integer>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // container be null
         try {
-            ElementFilterUtil.filter(ElementFilterUtil.FILTER_ELEMENT_NUM_UNLIMIT, testList, (ArrayList<Integer>) null, (ElementFilterUtil.Filter<String>) null, (ElementFilterUtil.Converter<String, Integer>) null);
+            ElementFilter.filter(ElementFilter.FILTER_ELEMENT_NUM_UNLIMIT, testList, (ArrayList<Integer>) null, (ElementFilter.Filter<String>) null, (ElementFilter.Converter<String, Integer>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // filter be null
         try {
-            ElementFilterUtil.filter(ElementFilterUtil.FILTER_ELEMENT_NUM_UNLIMIT, testList, new ArrayList<Integer>(), (ElementFilterUtil.Filter<String>) null, (ElementFilterUtil.Converter<String, Integer>) null);
+            ElementFilter.filter(ElementFilter.FILTER_ELEMENT_NUM_UNLIMIT, testList, new ArrayList<Integer>(), (ElementFilter.Filter<String>) null, (ElementFilter.Converter<String, Integer>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // converter be null
         try {
-            ElementFilterUtil.filter(ElementFilterUtil.FILTER_ELEMENT_NUM_UNLIMIT, testList, new ArrayList<Integer>(), new ElementFilterUtil.Filter<String>() {
+            ElementFilter.filter(ElementFilter.FILTER_ELEMENT_NUM_UNLIMIT, testList, new ArrayList<Integer>(), new ElementFilter.Filter<String>() {
                 @Override
                 public boolean isAccept(String s) {
                     return false;
                 }
-            }, (ElementFilterUtil.Converter<String, Integer>) null);
+            }, (ElementFilter.Converter<String, Integer>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
@@ -1426,12 +1426,12 @@ public class ElementFilterUtilTest {
          */
         {
             // unlimit result num
-            Integer[] resultContainer = ElementFilterUtil.filter(ElementFilterUtil.FILTER_ELEMENT_NUM_UNLIMIT, testArray, new Integer[7], new ElementFilterUtil.Filter<String>() {
+            Integer[] resultContainer = ElementFilter.filter(ElementFilter.FILTER_ELEMENT_NUM_UNLIMIT, testArray, new Integer[7], new ElementFilter.Filter<String>() {
                 @Override
                 public boolean isAccept(String s) {
                     return "7".equals(s);
                 }
-            }, new ElementFilterUtil.Converter<String, Integer>() {
+            }, new ElementFilter.Converter<String, Integer>() {
                 @Override
                 public Integer convert(String s) {
                     return Integer.parseInt(s);
@@ -1449,12 +1449,12 @@ public class ElementFilterUtilTest {
 
         {
             // limit 5 result
-            Integer[] resultContainer = ElementFilterUtil.filter(5, testArray, new Integer[5], new ElementFilterUtil.Filter<String>() {
+            Integer[] resultContainer = ElementFilter.filter(5, testArray, new Integer[5], new ElementFilter.Filter<String>() {
                 @Override
                 public boolean isAccept(String s) {
                     return "7".equals(s);
                 }
-            }, new ElementFilterUtil.Converter<String, Integer>() {
+            }, new ElementFilter.Converter<String, Integer>() {
                 @Override
                 public Integer convert(String s) {
                     return Integer.parseInt(s);
@@ -1473,12 +1473,12 @@ public class ElementFilterUtilTest {
         {
             // array length not enough
             try {
-                ElementFilterUtil.filter(5, testArray, new Integer[4], new ElementFilterUtil.Filter<String>() {
+                ElementFilter.filter(5, testArray, new Integer[4], new ElementFilter.Filter<String>() {
                     @Override
                     public boolean isAccept(String s) {
                         return "7".equals(s);
                     }
-                }, new ElementFilterUtil.Converter<String, Integer>() {
+                }, new ElementFilter.Converter<String, Integer>() {
                     @Override
                     public Integer convert(String s) {
                         return Integer.parseInt(s);
@@ -1495,40 +1495,40 @@ public class ElementFilterUtilTest {
         */
         // limit result count less -1
         try {
-            ElementFilterUtil.filter(-2, (String[]) null, (Integer[]) null, (ElementFilterUtil.Filter<String>) null, (ElementFilterUtil.Converter<String, Integer>) null);
+            ElementFilter.filter(-2, (String[]) null, (Integer[]) null, (ElementFilter.Filter<String>) null, (ElementFilter.Converter<String, Integer>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // sources be null
         try {
-            ElementFilterUtil.filter(ElementFilterUtil.FILTER_ELEMENT_NUM_UNLIMIT, (String[]) null, (Integer[]) null, (ElementFilterUtil.Filter<String>) null, (ElementFilterUtil.Converter<String, Integer>) null);
+            ElementFilter.filter(ElementFilter.FILTER_ELEMENT_NUM_UNLIMIT, (String[]) null, (Integer[]) null, (ElementFilter.Filter<String>) null, (ElementFilter.Converter<String, Integer>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // container be null
         try {
-            ElementFilterUtil.filter(ElementFilterUtil.FILTER_ELEMENT_NUM_UNLIMIT, testArray, (Integer[]) null, (ElementFilterUtil.Filter<String>) null, (ElementFilterUtil.Converter<String, Integer>) null);
+            ElementFilter.filter(ElementFilter.FILTER_ELEMENT_NUM_UNLIMIT, testArray, (Integer[]) null, (ElementFilter.Filter<String>) null, (ElementFilter.Converter<String, Integer>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // filter be null
         try {
-            ElementFilterUtil.filter(ElementFilterUtil.FILTER_ELEMENT_NUM_UNLIMIT, testArray, new Integer[1], (ElementFilterUtil.Filter<String>) null, (ElementFilterUtil.Converter<String, Integer>) null);
+            ElementFilter.filter(ElementFilter.FILTER_ELEMENT_NUM_UNLIMIT, testArray, new Integer[1], (ElementFilter.Filter<String>) null, (ElementFilter.Converter<String, Integer>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // converter be null
         try {
-            ElementFilterUtil.filter(ElementFilterUtil.FILTER_ELEMENT_NUM_UNLIMIT, testArray, new Integer[1], new ElementFilterUtil.Filter<String>() {
+            ElementFilter.filter(ElementFilter.FILTER_ELEMENT_NUM_UNLIMIT, testArray, new Integer[1], new ElementFilter.Filter<String>() {
                 @Override
                 public boolean isAccept(String s) {
                     return false;
                 }
-            }, (ElementFilterUtil.Converter<String, Integer>) null);
+            }, (ElementFilter.Converter<String, Integer>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
@@ -1541,12 +1541,12 @@ public class ElementFilterUtilTest {
          */
         {
             // unlimit result num
-            Integer[] resultContainer = ElementFilterUtil.filter(ElementFilterUtil.FILTER_ELEMENT_NUM_UNLIMIT, testList, new Integer[7], new ElementFilterUtil.Filter<String>() {
+            Integer[] resultContainer = ElementFilter.filter(ElementFilter.FILTER_ELEMENT_NUM_UNLIMIT, testList, new Integer[7], new ElementFilter.Filter<String>() {
                 @Override
                 public boolean isAccept(String s) {
                     return "7".equals(s);
                 }
-            }, new ElementFilterUtil.Converter<String, Integer>() {
+            }, new ElementFilter.Converter<String, Integer>() {
                 @Override
                 public Integer convert(String s) {
                     return Integer.parseInt(s);
@@ -1564,12 +1564,12 @@ public class ElementFilterUtilTest {
 
         {
             // limit 5 result
-            Integer[] resultContainer = ElementFilterUtil.filter(5, testList, new Integer[5], new ElementFilterUtil.Filter<String>() {
+            Integer[] resultContainer = ElementFilter.filter(5, testList, new Integer[5], new ElementFilter.Filter<String>() {
                 @Override
                 public boolean isAccept(String s) {
                     return "7".equals(s);
                 }
-            }, new ElementFilterUtil.Converter<String, Integer>() {
+            }, new ElementFilter.Converter<String, Integer>() {
                 @Override
                 public Integer convert(String s) {
                     return Integer.parseInt(s);
@@ -1588,12 +1588,12 @@ public class ElementFilterUtilTest {
         {
             // array length not enough
             try {
-                ElementFilterUtil.filter(5, testList, new Integer[4], new ElementFilterUtil.Filter<String>() {
+                ElementFilter.filter(5, testList, new Integer[4], new ElementFilter.Filter<String>() {
                     @Override
                     public boolean isAccept(String s) {
                         return "7".equals(s);
                     }
-                }, new ElementFilterUtil.Converter<String, Integer>() {
+                }, new ElementFilter.Converter<String, Integer>() {
                     @Override
                     public Integer convert(String s) {
                         return Integer.parseInt(s);
@@ -1610,40 +1610,40 @@ public class ElementFilterUtilTest {
          */
         // limit result count less -1
         try {
-            ElementFilterUtil.filter(-2, (Iterable<String>) null, (Integer[]) null, (ElementFilterUtil.Filter<String>) null, (ElementFilterUtil.Converter<String, Integer>) null);
+            ElementFilter.filter(-2, (Iterable<String>) null, (Integer[]) null, (ElementFilter.Filter<String>) null, (ElementFilter.Converter<String, Integer>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // sources be null
         try {
-            ElementFilterUtil.filter(ElementFilterUtil.FILTER_ELEMENT_NUM_UNLIMIT, (Iterable<String>) null, (Integer[]) null, (ElementFilterUtil.Filter<String>) null, (ElementFilterUtil.Converter<String, Integer>) null);
+            ElementFilter.filter(ElementFilter.FILTER_ELEMENT_NUM_UNLIMIT, (Iterable<String>) null, (Integer[]) null, (ElementFilter.Filter<String>) null, (ElementFilter.Converter<String, Integer>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // container be null
         try {
-            ElementFilterUtil.filter(ElementFilterUtil.FILTER_ELEMENT_NUM_UNLIMIT, testList, (Integer[]) null, (ElementFilterUtil.Filter<String>) null, (ElementFilterUtil.Converter<String, Integer>) null);
+            ElementFilter.filter(ElementFilter.FILTER_ELEMENT_NUM_UNLIMIT, testList, (Integer[]) null, (ElementFilter.Filter<String>) null, (ElementFilter.Converter<String, Integer>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // filter be null
         try {
-            ElementFilterUtil.filter(ElementFilterUtil.FILTER_ELEMENT_NUM_UNLIMIT, testList, new Integer[1], (ElementFilterUtil.Filter<String>) null, (ElementFilterUtil.Converter<String, Integer>) null);
+            ElementFilter.filter(ElementFilter.FILTER_ELEMENT_NUM_UNLIMIT, testList, new Integer[1], (ElementFilter.Filter<String>) null, (ElementFilter.Converter<String, Integer>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }
 
         // converter be null
         try {
-            ElementFilterUtil.filter(ElementFilterUtil.FILTER_ELEMENT_NUM_UNLIMIT, testList, new Integer[1], new ElementFilterUtil.Filter<String>() {
+            ElementFilter.filter(ElementFilter.FILTER_ELEMENT_NUM_UNLIMIT, testList, new Integer[1], new ElementFilter.Filter<String>() {
                 @Override
                 public boolean isAccept(String s) {
                     return false;
                 }
-            }, (ElementFilterUtil.Converter<String, Integer>) null);
+            }, (ElementFilter.Converter<String, Integer>) null);
             fail();
         } catch (IllegalArgumentException e) {
         }

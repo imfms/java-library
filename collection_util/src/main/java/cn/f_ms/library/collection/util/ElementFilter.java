@@ -9,7 +9,7 @@ import java.util.Collection;
  * TODO: 18-1-5  filter return collection type add default ArrayList impl
  * @author f_ms
  */
-public class ElementFilterUtil {
+public class ElementFilter {
 
     public interface Filter<Element> {
 
@@ -38,7 +38,7 @@ public class ElementFilterUtil {
     /**
      * no instance
      */
-    private ElementFilterUtil() {
+    private ElementFilter() {
         throw new IllegalStateException("I have no instance");
     }
 
