@@ -6,10 +6,10 @@ import java.util.Collection;
 
 /**
  * Collection Element Filter Util
- *
+ * TODO: 18-1-5  filter return collection type add default ArrayList impl
  * @author f_ms
  */
-public class ElementFilterUtil {
+public class ElementFilter {
 
     public interface Filter<Element> {
 
@@ -38,7 +38,7 @@ public class ElementFilterUtil {
     /**
      * no instance
      */
-    private ElementFilterUtil() {
+    private ElementFilter() {
         throw new IllegalStateException("I have no instance");
     }
 
@@ -103,7 +103,55 @@ public class ElementFilterUtil {
         return null;
     }
 
-    // baseline
+
+    /**
+     * get array's first element after specify filter
+     *
+     * @param sources   source array
+     * @param filter    element filter
+     * @param <Element> element type
+     * @return result element, will return null when none
+     */
+    public static <Element> Element filterFirst(Element[] sources, Filter<Element> filter) {
+        return filterFirst(sources, filter, new Converter<Element, Element>() {
+            @Override
+            public Element convert(Element element) {
+                return element;
+            }
+        });
+    }
+
+    /**
+     * get array's first data after specify filter and converter
+     *
+     * @param sources   source array
+     * @param filter    element filter
+     * @param converter element converter
+     * @param <Element> element type
+     * @return result element, will return null when none
+     */
+    public static <Element, Result> Result filterFirst(Element[] sources, Filter<Element> filter, Converter<Element, Result> converter) {
+
+        if (sources == null) {
+            throw new IllegalArgumentException("sources can't be null");
+        }
+
+        if (filter == null) {
+            throw new IllegalArgumentException("filter can't be null");
+        }
+
+        if (converter == null) {
+            throw new IllegalArgumentException("converter can't be null");
+        }
+
+        for (Element source : sources) {
+            if (filter.isAccept(source)) {
+                return converter.convert(source);
+            }
+        }
+
+        return null;
+    }
 
     /**
      * get array's all data after specify filter
@@ -179,8 +227,6 @@ public class ElementFilterUtil {
             }
         });
     }
-
-    // baseline
 
     /**
      * convert array's data after specify converter
@@ -317,8 +363,6 @@ public class ElementFilterUtil {
         );
     }
 
-    // baseline
-
     /**
      * get array's some data after specify filter and converter
      *
@@ -377,8 +421,6 @@ public class ElementFilterUtil {
     public static <Element, Result> Result[] filter(Iterable<? extends Element> sources, Result[] targetArray, Filter<Element> filter, Converter<Element, Result> converter) {
         return filter(FILTER_ELEMENT_NUM_UNLIMIT, sources, targetArray, filter, converter);
     }
-
-    // base line
 
     /**
      * get array's some data after specify filter and converter
