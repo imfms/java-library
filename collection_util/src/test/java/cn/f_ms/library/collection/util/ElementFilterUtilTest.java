@@ -109,7 +109,7 @@ public class ElementFilterUtilTest {
         Argument Check Test
          */
         try {
-            ElementFilterUtil.filterFirst(null, new ElementFilterUtil.Filter<Object>() {
+            ElementFilterUtil.filterFirst((Iterable<?>) null, new ElementFilterUtil.Filter<Object>() {
                 @Override
                 public boolean isAccept(Object o) {
                     return false;
@@ -156,7 +156,7 @@ public class ElementFilterUtilTest {
         Argument Check Test
          */
         try {
-            ElementFilterUtil.filterFirst(null, new ElementFilterUtil.Filter<Object>() {
+            ElementFilterUtil.filterFirst((Iterable<?>) null, new ElementFilterUtil.Filter<Object>() {
                 @Override
                 public boolean isAccept(Object o) {
                     return false;
@@ -217,6 +217,132 @@ public class ElementFilterUtilTest {
         assertThat(result7, CoreMatchers.is(7));
 
         Integer result11 = ElementFilterUtil.filterFirst(testList, new ElementFilterUtil.Filter<String>() {
+            @Override
+            public boolean isAccept(String s) {
+                return "11".equals(s);
+            }
+        }, new ElementFilterUtil.Converter<String, Integer>() {
+            @Override
+            public Integer convert(String s) {
+                return Integer.parseInt(s);
+            }
+        });
+        assertThat(result11, CoreMatchers.nullValue());
+    }
+
+    @Test
+    public void filterFirst2() throws Exception {
+        /*
+        Argument Check Test
+         */
+        try {
+            ElementFilterUtil.filterFirst((Object[]) null, new ElementFilterUtil.Filter<Object>() {
+                @Override
+                public boolean isAccept(Object o) {
+                    return false;
+                }
+            });
+
+            fail();
+        } catch (IllegalArgumentException e) {
+            // throw exception is right
+        }
+
+        try {
+            ElementFilterUtil.filterFirst(testArray, null);
+
+            fail();
+        } catch (IllegalArgumentException e) {
+            // throw exception is right
+        }
+
+        /*
+        feature test
+         */
+        String result7 = ElementFilterUtil.filterFirst(testArray, new ElementFilterUtil.Filter<String>() {
+            @Override
+            public boolean isAccept(String s) {
+                return "7".equals(s);
+            }
+        });
+        assertThat(result7, CoreMatchers.equalTo("7"));
+
+        String result11 = ElementFilterUtil.filterFirst(testArray, new ElementFilterUtil.Filter<String>() {
+            @Override
+            public boolean isAccept(String s) {
+                return "11".equals(s);
+            }
+        });
+        assertThat(result11, CoreMatchers.nullValue());
+    }
+
+    @Test
+    public void filterFirst3() throws Exception {
+        /*
+        Argument Check Test
+         */
+        try {
+            ElementFilterUtil.filterFirst((Object[]) null, new ElementFilterUtil.Filter<Object>() {
+                @Override
+                public boolean isAccept(Object o) {
+                    return false;
+                }
+            }, new ElementFilterUtil.Converter<Object, Object>() {
+                @Override
+                public Object convert(Object o) {
+                    return null;
+                }
+            });
+
+            fail();
+        } catch (IllegalArgumentException e) {
+            // throw exception is right
+        }
+
+        try {
+            ElementFilterUtil.filterFirst(testArray, null, new ElementFilterUtil.Converter<String, Object>() {
+                @Override
+                public Object convert(String s) {
+                    return null;
+                }
+            });
+
+            fail();
+        } catch (IllegalArgumentException e) {
+            // throw exception is right
+        }
+
+        try {
+            ElementFilterUtil.filterFirst(testArray, new ElementFilterUtil.Filter<String>() {
+                @Override
+                public boolean isAccept(String s) {
+                    return false;
+                }
+            }, null);
+
+            fail();
+        } catch (IllegalArgumentException e) {
+            // throw exception is right
+        }
+
+        /*
+        feature test
+         */
+        Integer result7 = ElementFilterUtil.filterFirst(testArray, new ElementFilterUtil.Filter<String>() {
+            @Override
+            public boolean isAccept(String s) {
+                return "7".equals(s);
+            }
+        }, new ElementFilterUtil.Converter<String, Integer>() {
+            @Override
+            public Integer convert(String s) {
+                return Integer.parseInt(s);
+            }
+        });
+
+        assertThat(result7, CoreMatchers.is(7));
+
+        Integer result11 = ElementFilterUtil.filterFirst(testArray, new ElementFilterUtil.Filter<String>() {
             @Override
             public boolean isAccept(String s) {
                 return "11".equals(s);
