@@ -52,7 +52,7 @@ public class ElementFilter {
      * @param <Element> element type
      * @return is exist? true == exist, false == not exist
      */
-    public static <Element> boolean isExist(Iterable<? extends Element> sources, Filter<Element> filter) {
+    public static <Element> boolean contains(Iterable<? extends Element> sources, Filter<Element> filter) {
         return filterFirst(sources, filter) != null;
     }
 
@@ -64,7 +64,7 @@ public class ElementFilter {
      * @param <Element> element type
      * @return is exist? true == exist, false == not exist
      */
-    public static <Element> boolean isExist(Element[] sources, Filter<Element> filter) {
+    public static <Element> boolean contains(Element[] sources, Filter<Element> filter) {
         return filterFirst(sources, filter) != null;
     }
 
