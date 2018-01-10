@@ -167,6 +167,186 @@ public class ElementFilter {
         return null;
     }
 
+    /**
+     * convert array's data after specify converter
+     *
+     * @param sources   source collection
+     * @param converter element convert
+     * @param <Element> element type
+     * @return result element container
+     */
+    public static <Element, Result> List<Result> convert(Element[] sources, Converter<Element, Result> converter) {
+        if (sources == null) {
+            throw new IllegalArgumentException("sources can't be null");
+        }
+
+        return filter(
+                sources,
+                new ArrayList<Result>(sources.length),
+                new Filter<Element>() {
+                    @Override
+                    public boolean isAccept(Element element) {
+                        return true;
+                    }
+                },
+                converter
+        );
+    }
+
+    /**
+     * convert array's data after specify converter
+     *
+     * @param sources          source collection
+     * @param targetCollection result element container
+     * @param converter        element convert
+     * @param <Element>        element type
+     * @param <Collection>     result element type
+     * @return result element container
+     */
+    public static <Element, Result, Collection extends java.util.Collection<Result>> Collection convert(Element[] sources, Collection targetCollection, Converter<Element, Result> converter) {
+        return filter(
+                sources,
+                targetCollection,
+                new Filter<Element>() {
+                    @Override
+                    public boolean isAccept(Element element) {
+                        return true;
+                    }
+                },
+                converter
+        );
+    }
+
+    /**
+     * convert collection's data after specify converter
+     *
+     * @param sources   source collection
+     * @param converter element convert
+     * @param <Element> element type
+     * @return result element container
+     */
+    public static <Element, Result> List<Result> convert(Iterable<? extends Element> sources, Converter<Element, Result> converter) {
+        return filter(
+                sources,
+                new ArrayList<Result>(), new Filter<Element>() {
+                    @Override
+                    public boolean isAccept(Element element) {
+                        return true;
+                    }
+                },
+                converter
+        );
+    }
+
+    /**
+     * convert collection's data after specify converter
+     *
+     * @param sources          source collection
+     * @param targetCollection result element container
+     * @param converter        element convert
+     * @param <Element>        element type
+     * @param <Collection>     result element type
+     * @return result element container
+     */
+    public static <Element, Result, Collection extends java.util.Collection<Result>> Collection convert(Iterable<? extends Element> sources, Collection targetCollection, Converter<Element, Result> converter) {
+        return filter(
+                sources,
+                targetCollection, new Filter<Element>() {
+                    @Override
+                    public boolean isAccept(Element element) {
+                        return true;
+                    }
+                },
+                converter
+        );
+    }
+
+    /**
+     * convert array's data after specify converter
+     *
+     * @param sources   source collection
+     * @param converter element convert
+     * @param <Element> element type
+     * @return result element container
+     */
+    public static <Element, Result> Result[] convert(Element[] sources, Class<Result> resultClass, Converter<Element, Result> converter) {
+
+        if (resultClass == null) {
+            throw new IllegalArgumentException("resultClass can't be null");
+        }
+
+        Result[] targetArray = (Result[]) Array.newInstance(resultClass, sources.length);
+
+        return convert(sources, targetArray, converter);
+    }
+
+    /**
+     * convert array's data after specify converter
+     *
+     * @param sources     source collection
+     * @param targetArray result element container
+     * @param converter   element convert
+     * @param <Element>   element type
+     * @return result element container
+     */
+    public static <Element, Result> Result[] convert(Element[] sources, Result[] targetArray, Converter<Element, Result> converter) {
+        return filter(
+                sources,
+                targetArray,
+                new Filter<Element>() {
+                    @Override
+                    public boolean isAccept(Element element) {
+                        return true;
+                    }
+                },
+                converter
+        );
+    }
+
+    /**
+     * convert collection's data after specify converter
+     *
+     * @param sources   source collection
+     * @param converter element convert
+     * @param <Element> element type
+     * @return result element container
+     * @throws ArrayIndexOutOfBoundsException targetArray length less actual result element number
+     */
+    public static <Element, Result> Result[] convert(Collection<? extends Element> sources, Class<Result> resultClass, Converter<Element, Result> converter) {
+
+        if (resultClass == null) {
+            throw new IllegalArgumentException("resultClass can't be null");
+        }
+
+        Result[] targetArray = (Result[]) Array.newInstance(resultClass, sources.size());
+
+        return convert(sources, targetArray, converter);
+    }
+
+    /**
+     * convert collection's data after specify converter
+     *
+     * @param sources     source collection
+     * @param targetArray result element container
+     * @param converter   element convert
+     * @param <Element>   element type
+     * @return result element container
+     * @throws ArrayIndexOutOfBoundsException targetArray length less actual result element number
+     */
+    public static <Element, Result> Result[] convert(Iterable<? extends Element> sources, Result[] targetArray, Converter<Element, Result> converter) {
+        return filter(
+                sources,
+                targetArray,
+                new Filter<Element>() {
+                    @Override
+                    public boolean isAccept(Element element) {
+                        return true;
+                    }
+                },
+                converter
+        );
+    }
+
 
     /**
      * get array's all data after specify filter
@@ -275,187 +455,6 @@ public class ElementFilter {
                 return element;
             }
         });
-    }
-
-    /**
-     * convert array's data after specify converter
-     *
-     * @param sources   source collection
-     * @param converter element convert
-     * @param <Element> element type
-     * @return result element container
-     */
-    public static <Element, Result> List<Result> convert(Element[] sources, Converter<Element, Result> converter) {
-        if (sources == null) {
-            throw new IllegalArgumentException("sources can't be null");
-        }
-
-        return filter(
-                sources,
-                new ArrayList<Result>(sources.length),
-                new Filter<Element>() {
-                    @Override
-                    public boolean isAccept(Element element) {
-                        return true;
-                    }
-                },
-                converter
-        );
-    }
-
-    /**
-     * convert array's data after specify converter
-     *
-     * @param sources          source collection
-     * @param targetCollection result element container
-     * @param converter        element convert
-     * @param <Element>        element type
-     * @param <Collection>     result element type
-     * @return result element container
-     */
-    public static <Element, Result, Collection extends java.util.Collection<Result>> Collection convert(Element[] sources, Collection targetCollection, Converter<Element, Result> converter) {
-        return filter(
-                sources,
-                targetCollection,
-                new Filter<Element>() {
-                    @Override
-                    public boolean isAccept(Element element) {
-                        return true;
-                    }
-                },
-                converter
-        );
-    }
-
-    /**
-     * convert collection's data after specify converter
-     *
-     * @param sources   source collection
-     * @param converter element convert
-     * @param <Element> element type
-     * @return result element container
-     */
-    public static <Element, Result> List<Result> convert(Iterable<? extends Element> sources, Converter<Element, Result> converter) {
-        return filter(
-                sources,
-                new ArrayList<Result>(), new Filter<Element>() {
-                    @Override
-                    public boolean isAccept(Element element) {
-                        return true;
-                    }
-                },
-                converter
-        );
-    }
-
-    /**
-     * convert collection's data after specify converter
-     *
-     * @param sources          source collection
-     * @param targetCollection result element container
-     * @param converter        element convert
-     * @param <Element>        element type
-     * @param <Collection>     result element type
-     * @return result element container
-     */
-    public static <Element, Result, Collection extends java.util.Collection<Result>> Collection convert(Iterable<? extends Element> sources, Collection targetCollection, Converter<Element, Result> converter) {
-        return filter(
-                sources,
-                targetCollection, new Filter<Element>() {
-                    @Override
-                    public boolean isAccept(Element element) {
-                        return true;
-                    }
-                },
-                converter
-        );
-    }
-
-    /**
-     * convert array's data after specify converter
-     * // TODO: 17-12-21 try remove resultClass argument
-     *
-     * @param sources   source collection
-     * @param converter element convert
-     * @param <Element> element type
-     * @return result element container
-     */
-    public static <Element, Result> Result[] convert(Element[] sources, Class<Result> resultClass, Converter<Element, Result> converter) {
-
-        if (resultClass == null) {
-            throw new IllegalArgumentException("resultClass can't be null");
-        }
-
-        Result[] targetArray = (Result[]) Array.newInstance(resultClass, sources.length);
-
-        return convert(sources, targetArray, converter);
-    }
-
-    /**
-     * convert array's data after specify converter
-     *
-     * @param sources     source collection
-     * @param targetArray result element container
-     * @param converter   element convert
-     * @param <Element>   element type
-     * @return result element container
-     */
-    public static <Element, Result> Result[] convert(Element[] sources, Result[] targetArray, Converter<Element, Result> converter) {
-        return filter(
-                sources,
-                targetArray,
-                new Filter<Element>() {
-                    @Override
-                    public boolean isAccept(Element element) {
-                        return true;
-                    }
-                },
-                converter
-        );
-    }
-
-    /**
-     * convert collection's data after specify converter
-     *
-     * @param sources   source collection
-     * @param converter element convert
-     * @param <Element> element type
-     * @return result element container
-     * @throws ArrayIndexOutOfBoundsException targetArray length less actual result element number
-     */
-    public static <Element, Result> Result[] convert(Collection<? extends Element> sources, Class<Result> resultClass, Converter<Element, Result> converter) {
-
-        if (resultClass == null) {
-            throw new IllegalArgumentException("resultClass can't be null");
-        }
-
-        Result[] targetArray = (Result[]) Array.newInstance(resultClass, sources.size());
-
-        return convert(sources, targetArray, converter);
-    }
-
-    /**
-     * convert collection's data after specify converter
-     *
-     * @param sources     source collection
-     * @param targetArray result element container
-     * @param converter   element convert
-     * @param <Element>   element type
-     * @return result element container
-     * @throws ArrayIndexOutOfBoundsException targetArray length less actual result element number
-     */
-    public static <Element, Result> Result[] convert(Iterable<? extends Element> sources, Result[] targetArray, Converter<Element, Result> converter) {
-        return filter(
-                sources,
-                targetArray,
-                new Filter<Element>() {
-                    @Override
-                    public boolean isAccept(Element element) {
-                        return true;
-                    }
-                },
-                converter
-        );
     }
 
     /**
