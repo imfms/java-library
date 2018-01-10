@@ -62,7 +62,7 @@ public class ElementFilterTest {
         Argument Check Test
          */
         try {
-            ElementFilter.isExist(null, new ElementFilter.Filter<Object>() {
+            ElementFilter.isExist((Iterable<?>) null, new ElementFilter.Filter<Object>() {
                 @Override
                 public boolean isAccept(Object o) {
                     return false;
@@ -94,6 +94,52 @@ public class ElementFilterTest {
         assertThat(isExist7, is(true));
 
         boolean isExist11 = ElementFilter.isExist(testList, new ElementFilter.Filter<String>() {
+            @Override
+            public boolean isAccept(String s) {
+                return "11".equals(s);
+            }
+        });
+        assertThat(isExist11, is(false));
+    }
+
+    @Test
+    public void isExist1() throws Exception {
+                /*
+        Argument Check Test
+         */
+        try {
+            ElementFilter.isExist((Object[]) null, new ElementFilter.Filter<Object>() {
+                @Override
+                public boolean isAccept(Object o) {
+                    return false;
+                }
+            });
+
+            fail();
+        } catch (IllegalArgumentException e) {
+            // throw exception is right
+        }
+
+        try {
+            ElementFilter.isExist(testArray, null);
+
+            fail();
+        } catch (IllegalArgumentException e) {
+            // throw exception is right
+        }
+
+        /*
+        feature test
+         */
+        boolean isExist7 = ElementFilter.isExist(testArray, new ElementFilter.Filter<String>() {
+            @Override
+            public boolean isAccept(String s) {
+                return "7".equals(s);
+            }
+        });
+        assertThat(isExist7, is(true));
+
+        boolean isExist11 = ElementFilter.isExist(testArray, new ElementFilter.Filter<String>() {
             @Override
             public boolean isAccept(String s) {
                 return "11".equals(s);

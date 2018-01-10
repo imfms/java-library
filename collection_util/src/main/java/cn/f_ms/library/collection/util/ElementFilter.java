@@ -43,7 +43,7 @@ public class ElementFilter {
     }
 
     /**
-     * is exist some data I want
+     * is exist a data after specify filter
      *
      * @param sources   source collection
      * @param filter    element filter
@@ -51,6 +51,18 @@ public class ElementFilter {
      * @return is exist? true == exist, false == not exist
      */
     public static <Element> boolean isExist(Iterable<? extends Element> sources, Filter<Element> filter) {
+        return filterFirst(sources, filter) != null;
+    }
+
+    /**
+     * is exist a data after specify filter
+     *
+     * @param sources   source array
+     * @param filter    element filter
+     * @param <Element> element type
+     * @return is exist? true == exist, false == not exist
+     */
+    public static <Element> boolean isExist(Element[] sources, Filter<Element> filter) {
         return filterFirst(sources, filter) != null;
     }
 
