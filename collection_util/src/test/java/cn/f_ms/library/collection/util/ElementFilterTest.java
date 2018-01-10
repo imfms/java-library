@@ -104,7 +104,7 @@ public class ElementFilterTest {
 
     @Test
     public void isExist1() throws Exception {
-                /*
+        /*
         Argument Check Test
          */
         try {
@@ -757,6 +757,94 @@ public class ElementFilterTest {
     }
 
     @Test
+    public void convert6() throws Exception {
+
+        /*
+        argument check test
+         */
+
+        // sources be null
+        try {
+            ElementFilter.convert((String[])null, (ElementFilter.Converter<String, Integer>)null);
+            fail();
+        } catch (IllegalArgumentException e) {
+        }
+
+        // converter be null
+        try {
+            ElementFilter.convert(testArray, (ElementFilter.Converter<String, Integer>)null);
+            fail();
+        } catch (IllegalArgumentException e) {
+        }
+
+        /*
+        feature test
+         */
+        List<Integer> resultContainer = ElementFilter.convert(
+                testArray,
+                new ElementFilter.Converter<String, Integer>() {
+                    @Override
+                    public Integer convert(String s) {
+                        return Integer.parseInt(s);
+                    }
+                }
+        );
+
+        ArrayList<Integer> testContainer = new ArrayList<>(testArray.length);
+        for (String s : testArray) {
+            testContainer.add(Integer.parseInt(s));
+        }
+
+        boolean isSame = Objects.equals(resultContainer, testContainer);
+
+        assertThat(isSame, is(true));
+    }
+
+    @Test
+    public void convert7() throws Exception {
+
+        /*
+        argument check test
+         */
+
+        // sources be null
+        try {
+            ElementFilter.convert((Iterable<String>)null, (ElementFilter.Converter<String, Integer>)null);
+            fail();
+        } catch (IllegalArgumentException e) {
+        }
+
+        // converter be null
+        try {
+            ElementFilter.convert(testList, (ElementFilter.Converter<String, Integer>)null);
+            fail();
+        } catch (IllegalArgumentException e) {
+        }
+
+        /*
+        feature test
+         */
+        List<Integer> resultContainer = ElementFilter.convert(
+                testList,
+                new ElementFilter.Converter<String, Integer>() {
+                    @Override
+                    public Integer convert(String s) {
+                        return Integer.parseInt(s);
+                    }
+                }
+        );
+
+        ArrayList<Integer> testContainer = new ArrayList<>(testList.size());
+        for (String s : testList) {
+            testContainer.add(Integer.parseInt(s));
+        }
+
+        boolean isSame = Objects.equals(resultContainer, testContainer);
+
+        assertThat(isSame, is(true));
+    }
+
+    @Test
     public void filter() throws Exception {
         /*
         feature test
@@ -1273,7 +1361,6 @@ public class ElementFilterTest {
         }
     }
 
-
     @Test
     public void filter8() throws Exception {
         /*
@@ -1695,7 +1782,380 @@ public class ElementFilterTest {
         }
     }
 
-    public static <T> T[] arrayConvert(List<? extends Object> sources, Class<T> resultTypeClass) {
+    @Test
+    public void filter12() throws Exception {
+        /*
+        feature test
+         */
+        {
+            // unlimit result num
+            List<String> resultContainer = ElementFilter.filter(testArray, new ElementFilter.Filter<String>() {
+                @Override
+                public boolean isAccept(String s) {
+                    return "7".equals(s);
+                }
+            });
+
+            ArrayList<String> expectContainer = new ArrayList<>();
+            for (int i = 0; i < 7; i++) {
+                expectContainer.add(String.valueOf(7));
+            }
+
+            boolean isSame = expectContainer.equals(resultContainer);
+            assertThat(isSame, is(true));
+        }
+
+        /*
+        Argument Check Test
+        */
+        // sources be null
+        try {
+            ElementFilter.filter((String[]) null, (ElementFilter.Filter<String>) null);
+            fail();
+        } catch (IllegalArgumentException e) {
+        }
+
+        // filter be null
+        try {
+            ElementFilter.filter(testArray, (ElementFilter.Filter<String>) null);
+            fail();
+        } catch (IllegalArgumentException e) {
+        }
+    }
+
+    @Test
+    public void filter13() throws Exception {
+        /*
+        feature test
+        */
+        {
+            List<String> resultContainer = ElementFilter.filter(testList, new ElementFilter.Filter<String>() {
+                @Override
+                public boolean isAccept(String s) {
+                    return "7".equals(s);
+                }
+            });
+
+            ArrayList<String> expectContainer = new ArrayList<>();
+            for (int i = 0; i < 7; i++) {
+                expectContainer.add(String.valueOf(7));
+            }
+
+            boolean isSame = expectContainer.equals(resultContainer);
+            assertThat(isSame, is(true));
+        }
+
+        /*
+        Argument Check Test
+         */
+        // sources be null
+        try {
+            ElementFilter.filter((Iterable<String>) null, (ElementFilter.Filter<String>) null);
+            fail();
+        } catch (IllegalArgumentException e) {
+        }
+
+        // filter be null
+        try {
+            ElementFilter.filter(testList, (ElementFilter.Filter<String>) null);
+            fail();
+        } catch (IllegalArgumentException e) {
+        }
+    }
+
+
+    @Test
+    public void filter14() throws Exception {
+        /*
+        feature test
+         */
+        {
+            // unlimit result num
+            List<Integer> resultContainer = ElementFilter.filter(testArray, new ElementFilter.Filter<String>() {
+                @Override
+                public boolean isAccept(String s) {
+                    return "7".equals(s);
+                }
+            }, new ElementFilter.Converter<String, Integer>() {
+                @Override
+                public Integer convert(String s) {
+                    return Integer.parseInt(s);
+                }
+            });
+
+            ArrayList<Integer> expectContainer = new ArrayList<>();
+            for (int i = 0; i < 7; i++) {
+                expectContainer.add(7);
+            }
+
+            boolean isSame = expectContainer.equals(resultContainer);
+            assertThat(isSame, is(true));
+        }
+
+        /*
+        Argument Check Test
+        */
+        // sources be null
+        try {
+            ElementFilter.filter((String[]) null, (ElementFilter.Filter<String>) null, (ElementFilter.Converter<String, Integer>) null);
+            fail();
+        } catch (IllegalArgumentException e) {
+        }
+
+        // filter be null
+        try {
+            ElementFilter.filter(testArray, (ElementFilter.Filter<String>) null, (ElementFilter.Converter<String, Integer>) null);
+            fail();
+        } catch (IllegalArgumentException e) {
+        }
+
+        // converter be null
+        try {
+            ElementFilter.filter(testArray, new ElementFilter.Filter<String>() {
+                @Override
+                public boolean isAccept(String s) {
+                    return false;
+                }
+            }, (ElementFilter.Converter<String, Integer>) null);
+            fail();
+        } catch (IllegalArgumentException e) {
+        }
+    }
+
+    @Test
+    public void filter15() throws Exception {
+        /*
+        feature test
+         */
+        {
+            List<Integer> resultContainer = ElementFilter.filter(testList, new ElementFilter.Filter<String>() {
+                @Override
+                public boolean isAccept(String s) {
+                    return "7".equals(s);
+                }
+            }, new ElementFilter.Converter<String, Integer>() {
+                @Override
+                public Integer convert(String s) {
+                    return Integer.parseInt(s);
+                }
+            });
+
+            ArrayList<Integer> expectContainer = new ArrayList<>();
+            for (int i = 0; i < 7; i++) {
+                expectContainer.add(7);
+            }
+
+            boolean isSame = expectContainer.equals(resultContainer);
+            assertThat(isSame, is(true));
+        }
+
+        /*
+        Argument Check Test
+         */
+        // sources be null
+        try {
+            ElementFilter.filter((Iterable<String>) null, (ElementFilter.Filter<String>) null, (ElementFilter.Converter<String, Integer>) null);
+            fail();
+        } catch (IllegalArgumentException e) {
+        }
+
+        // filter be null
+        try {
+            ElementFilter.filter(testList, (ElementFilter.Filter<String>) null, (ElementFilter.Converter<String, Integer>) null);
+            fail();
+        } catch (IllegalArgumentException e) {
+        }
+
+        // converter be null
+        try {
+            ElementFilter.filter(testList, new ElementFilter.Filter<String>() {
+                @Override
+                public boolean isAccept(String s) {
+                    return false;
+                }
+            }, (ElementFilter.Converter<String, Integer>) null);
+            fail();
+        } catch (IllegalArgumentException e) {
+        }
+    }
+
+    @Test
+    public void filter16() throws Exception {
+        /*
+        feature test
+         */
+        {
+            // unlimit result num
+            List<Integer> resultContainer = ElementFilter.filter(ElementFilter.FILTER_ELEMENT_NUM_UNLIMIT, testArray, new ElementFilter.Filter<String>() {
+                @Override
+                public boolean isAccept(String s) {
+                    return "7".equals(s);
+                }
+            }, new ElementFilter.Converter<String, Integer>() {
+                @Override
+                public Integer convert(String s) {
+                    return Integer.parseInt(s);
+                }
+            });
+
+            ArrayList<Integer> expectContainer = new ArrayList<>();
+            for (int i = 0; i < 7; i++) {
+                expectContainer.add(7);
+            }
+
+            boolean isSame = expectContainer.equals(resultContainer);
+            assertThat(isSame, is(true));
+        }
+
+        {
+            // limit 5 result
+            List<Integer> resultContainer = ElementFilter.filter(5, testArray, new ElementFilter.Filter<String>() {
+                @Override
+                public boolean isAccept(String s) {
+                    return "7".equals(s);
+                }
+            }, new ElementFilter.Converter<String, Integer>() {
+                @Override
+                public Integer convert(String s) {
+                    return Integer.parseInt(s);
+                }
+            });
+
+            ArrayList<Integer> expectContainer = new ArrayList<>();
+            for (int i = 0; i < 5; i++) {
+                expectContainer.add(7);
+            }
+
+            boolean isSame = expectContainer.equals(resultContainer);
+            assertThat(isSame, is(true));
+        }
+
+        /*
+        Argument Check Test
+        */
+        // limit result count less -1
+        try {
+            ElementFilter.filter(-2, (String[]) null, (ElementFilter.Filter<String>) null, (ElementFilter.Converter<String, Integer>) null);
+            fail();
+        } catch (IllegalArgumentException e) {
+        }
+
+        // sources be null
+        try {
+            ElementFilter.filter(ElementFilter.FILTER_ELEMENT_NUM_UNLIMIT, (String[]) null, (ElementFilter.Filter<String>) null, (ElementFilter.Converter<String, Integer>) null);
+            fail();
+        } catch (IllegalArgumentException e) {
+        }
+
+        // filter be null
+        try {
+            ElementFilter.filter(ElementFilter.FILTER_ELEMENT_NUM_UNLIMIT, testArray, (ElementFilter.Filter<String>) null, (ElementFilter.Converter<String, Integer>) null);
+            fail();
+        } catch (IllegalArgumentException e) {
+        }
+
+        // converter be null
+        try {
+            ElementFilter.filter(ElementFilter.FILTER_ELEMENT_NUM_UNLIMIT, testArray, new ElementFilter.Filter<String>() {
+                @Override
+                public boolean isAccept(String s) {
+                    return false;
+                }
+            }, (ElementFilter.Converter<String, Integer>) null);
+            fail();
+        } catch (IllegalArgumentException e) {
+        }
+    }
+
+    @Test
+    public void filter17() throws Exception {
+        /*
+        feature test
+         */
+        {
+            // unlimit result num
+            List<Integer> resultContainer = ElementFilter.filter(ElementFilter.FILTER_ELEMENT_NUM_UNLIMIT, testList, new ElementFilter.Filter<String>() {
+                @Override
+                public boolean isAccept(String s) {
+                    return "7".equals(s);
+                }
+            }, new ElementFilter.Converter<String, Integer>() {
+                @Override
+                public Integer convert(String s) {
+                    return Integer.parseInt(s);
+                }
+            });
+
+            ArrayList<Integer> expectContainer = new ArrayList<>();
+            for (int i = 0; i < 7; i++) {
+                expectContainer.add(7);
+            }
+
+            boolean isSame = expectContainer.equals(resultContainer);
+            assertThat(isSame, is(true));
+        }
+
+        {
+            // limit 5 result
+            List<Integer> resultContainer = ElementFilter.filter(5, testList, new ElementFilter.Filter<String>() {
+                @Override
+                public boolean isAccept(String s) {
+                    return "7".equals(s);
+                }
+            }, new ElementFilter.Converter<String, Integer>() {
+                @Override
+                public Integer convert(String s) {
+                    return Integer.parseInt(s);
+                }
+            });
+
+            ArrayList<Integer> expectContainer = new ArrayList<>();
+            for (int i = 0; i < 5; i++) {
+                expectContainer.add(7);
+            }
+
+            boolean isSame = expectContainer.equals(resultContainer);
+            assertThat(isSame, is(true));
+        }
+
+        /*
+        Argument Check Test
+         */
+        // limit result count less -1
+        try {
+            ElementFilter.filter(-2, (Iterable<String>) null, (ElementFilter.Filter<String>) null, (ElementFilter.Converter<String, Integer>) null);
+            fail();
+        } catch (IllegalArgumentException e) {
+        }
+
+        // sources be null
+        try {
+            ElementFilter.filter(ElementFilter.FILTER_ELEMENT_NUM_UNLIMIT, (Iterable<String>) null, (ElementFilter.Filter<String>) null, (ElementFilter.Converter<String, Integer>) null);
+            fail();
+        } catch (IllegalArgumentException e) {
+        }
+
+        // filter be null
+        try {
+            ElementFilter.filter(ElementFilter.FILTER_ELEMENT_NUM_UNLIMIT, testList, (ElementFilter.Filter<String>) null, (ElementFilter.Converter<String, Integer>) null);
+            fail();
+        } catch (IllegalArgumentException e) {
+        }
+
+        // converter be null
+        try {
+            ElementFilter.filter(ElementFilter.FILTER_ELEMENT_NUM_UNLIMIT, testList, new ElementFilter.Filter<String>() {
+                @Override
+                public boolean isAccept(String s) {
+                    return false;
+                }
+            }, (ElementFilter.Converter<String, Integer>) null);
+            fail();
+        } catch (IllegalArgumentException e) {
+        }
+    }
+
+    private static <T> T[] arrayConvert(List<? extends Object> sources, Class<T> resultTypeClass) {
 
         T[] resultArr = (T[]) Array.newInstance(resultTypeClass, sources.size());
 

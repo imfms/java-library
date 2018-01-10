@@ -1,12 +1,14 @@
 package cn.f_ms.library.collection.util;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Collection Element Filter Util
- * TODO: 18-1-5  filter return collection type add default ArrayList impl
+ *
  * @author f_ms
  */
 public class ElementFilter {
@@ -165,6 +167,24 @@ public class ElementFilter {
         return null;
     }
 
+
+    /**
+     * get array's all data after specify filter
+     *
+     * @param sources   source collection
+     * @param filter    element filter
+     * @param <Element> element type
+     * @return result element container
+     */
+    public static <Element> List<Element> filter(Element[] sources, Filter<Element> filter) {
+        return filter(sources, new ArrayList<Element>(), filter, new Converter<Element, Element>() {
+            @Override
+            public Element convert(Element element) {
+                return element;
+            }
+        });
+    }
+
     /**
      * get array's all data after specify filter
      *
@@ -177,6 +197,23 @@ public class ElementFilter {
      */
     public static <Element, Collection extends java.util.Collection<Element>> Collection filter(Element[] sources, Collection targetCollection, Filter<Element> filter) {
         return filter(sources, targetCollection, filter, new Converter<Element, Element>() {
+            @Override
+            public Element convert(Element element) {
+                return element;
+            }
+        });
+    }
+
+    /**
+     * get collection's some data after specify filter
+     *
+     * @param sources   source collection
+     * @param filter    element filter
+     * @param <Element> element type
+     * @return result element container
+     */
+    public static <Element> List<Element> filter(Iterable<? extends Element> sources, Filter<Element> filter) {
+        return filter(sources, new ArrayList<Element>(), filter, new Converter<Element, Element>() {
             @Override
             public Element convert(Element element) {
                 return element;
@@ -243,6 +280,32 @@ public class ElementFilter {
     /**
      * convert array's data after specify converter
      *
+     * @param sources   source collection
+     * @param converter element convert
+     * @param <Element> element type
+     * @return result element container
+     */
+    public static <Element, Result> List<Result> convert(Element[] sources, Converter<Element, Result> converter) {
+        if (sources == null) {
+            throw new IllegalArgumentException("sources can't be null");
+        }
+
+        return filter(
+                sources,
+                new ArrayList<Result>(sources.length),
+                new Filter<Element>() {
+                    @Override
+                    public boolean isAccept(Element element) {
+                        return true;
+                    }
+                },
+                converter
+        );
+    }
+
+    /**
+     * convert array's data after specify converter
+     *
      * @param sources          source collection
      * @param targetCollection result element container
      * @param converter        element convert
@@ -264,6 +327,26 @@ public class ElementFilter {
         );
     }
 
+    /**
+     * convert collection's data after specify converter
+     *
+     * @param sources   source collection
+     * @param converter element convert
+     * @param <Element> element type
+     * @return result element container
+     */
+    public static <Element, Result> List<Result> convert(Iterable<? extends Element> sources, Converter<Element, Result> converter) {
+        return filter(
+                sources,
+                new ArrayList<Result>(), new Filter<Element>() {
+                    @Override
+                    public boolean isAccept(Element element) {
+                        return true;
+                    }
+                },
+                converter
+        );
+    }
 
     /**
      * convert collection's data after specify converter
@@ -378,6 +461,19 @@ public class ElementFilter {
     /**
      * get array's some data after specify filter and converter
      *
+     * @param sources   source collection
+     * @param filter    element filter
+     * @param converter element convert
+     * @param <Element> element type
+     * @return result element container
+     */
+    public static <Element, Result> List<Result> filter(Element[] sources, Filter<Element> filter, Converter<Element, Result> converter) {
+        return filter(FILTER_ELEMENT_NUM_UNLIMIT, sources, new ArrayList<Result>(), filter, converter);
+    }
+
+    /**
+     * get array's some data after specify filter and converter
+     *
      * @param sources          source collection
      * @param targetCollection result element container
      * @param filter           element filter
@@ -388,6 +484,19 @@ public class ElementFilter {
      */
     public static <Element, Result, Collection extends java.util.Collection<Result>> Collection filter(Element[] sources, Collection targetCollection, Filter<Element> filter, Converter<Element, Result> converter) {
         return filter(FILTER_ELEMENT_NUM_UNLIMIT, sources, targetCollection, filter, converter);
+    }
+
+    /**
+     * get collection's some data after specify filter and converter
+     *
+     * @param sources   source collection
+     * @param filter    element filter
+     * @param converter element convert
+     * @param <Element> element type
+     * @return result element container
+     */
+    public static <Element, Result> List<Result> filter(Iterable<? extends Element> sources, Filter<Element> filter, Converter<Element, Result> converter) {
+        return filter(FILTER_ELEMENT_NUM_UNLIMIT, sources, new ArrayList<Result>(), filter, converter);
     }
 
     /**
@@ -440,6 +549,25 @@ public class ElementFilter {
      * @param maxTargetElementNum max target filter element num,
      *                            value < -1 will throw exception, value == -1 is get all element
      * @param sources             source collection
+     * @param filter              element filter
+     * @param converter           element convert
+     * @param <Element>           element type
+     * @return result element container
+     */
+    public static <Element, Result> List<Result> filter(int maxTargetElementNum, Element[] sources, Filter<Element> filter, Converter<Element, Result> converter) {
+        if (sources == null) {
+            throw new IllegalArgumentException("sources can't be null");
+        }
+
+        return filter(maxTargetElementNum, Arrays.asList(sources), new ArrayList<Result>(), filter, converter);
+    }
+
+    /**
+     * get array's some data after specify filter and converter
+     *
+     * @param maxTargetElementNum max target filter element num,
+     *                            value < -1 will throw exception, value == -1 is get all element
+     * @param sources             source collection
      * @param targetCollection    result element container
      * @param filter              element filter
      * @param converter           element convert
@@ -453,6 +581,22 @@ public class ElementFilter {
         }
 
         return filter(maxTargetElementNum, Arrays.asList(sources), targetCollection, filter, converter);
+    }
+
+
+    /**
+     * get collection's some data after specify filter and converter
+     *
+     * @param maxTargetElementNum max target filter element num,
+     *                            value < -1 will throw exception, value == -1 is get all element
+     * @param sources             source collection
+     * @param filter              element filter
+     * @param converter           element convert
+     * @param <Element>           element type
+     * @return result element container
+     */
+    public static <Element, Result> List<Result> filter(int maxTargetElementNum, Iterable<? extends Element> sources, Filter<Element> filter, Converter<Element, Result> converter) {
+        return filter(maxTargetElementNum, sources, new ArrayList<Result>(), filter, converter);
     }
 
     /**
