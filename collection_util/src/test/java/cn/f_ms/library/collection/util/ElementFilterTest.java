@@ -56,13 +56,13 @@ public class ElementFilterTest {
     }
 
     @Test
-    public void isExist() throws Exception {
+    public void contains() throws Exception {
 
         /*
         Argument Check Test
          */
         try {
-            ElementFilter.isExist((Iterable<?>) null, new ElementFilter.Filter<Object>() {
+            ElementFilter.contains((Iterable<?>) null, new ElementFilter.Filter<Object>() {
                 @Override
                 public boolean isAccept(Object o) {
                     return false;
@@ -75,7 +75,7 @@ public class ElementFilterTest {
         }
 
         try {
-            ElementFilter.isExist(testList, null);
+            ElementFilter.contains(testList, null);
 
             fail();
         } catch (IllegalArgumentException e) {
@@ -85,7 +85,7 @@ public class ElementFilterTest {
         /*
         feature test
          */
-        boolean isExist7 = ElementFilter.isExist(testList, new ElementFilter.Filter<String>() {
+        boolean isExist7 = ElementFilter.contains(testList, new ElementFilter.Filter<String>() {
             @Override
             public boolean isAccept(String s) {
                 return "7".equals(s);
@@ -93,7 +93,7 @@ public class ElementFilterTest {
         });
         assertThat(isExist7, is(true));
 
-        boolean isExist11 = ElementFilter.isExist(testList, new ElementFilter.Filter<String>() {
+        boolean isExist11 = ElementFilter.contains(testList, new ElementFilter.Filter<String>() {
             @Override
             public boolean isAccept(String s) {
                 return "11".equals(s);
@@ -103,12 +103,12 @@ public class ElementFilterTest {
     }
 
     @Test
-    public void isExist1() throws Exception {
+    public void contains1() throws Exception {
         /*
         Argument Check Test
          */
         try {
-            ElementFilter.isExist((Object[]) null, new ElementFilter.Filter<Object>() {
+            ElementFilter.contains((Object[]) null, new ElementFilter.Filter<Object>() {
                 @Override
                 public boolean isAccept(Object o) {
                     return false;
@@ -121,7 +121,7 @@ public class ElementFilterTest {
         }
 
         try {
-            ElementFilter.isExist(testArray, null);
+            ElementFilter.contains(testArray, null);
 
             fail();
         } catch (IllegalArgumentException e) {
@@ -131,7 +131,7 @@ public class ElementFilterTest {
         /*
         feature test
          */
-        boolean isExist7 = ElementFilter.isExist(testArray, new ElementFilter.Filter<String>() {
+        boolean isExist7 = ElementFilter.contains(testArray, new ElementFilter.Filter<String>() {
             @Override
             public boolean isAccept(String s) {
                 return "7".equals(s);
@@ -139,7 +139,7 @@ public class ElementFilterTest {
         });
         assertThat(isExist7, is(true));
 
-        boolean isExist11 = ElementFilter.isExist(testArray, new ElementFilter.Filter<String>() {
+        boolean isExist11 = ElementFilter.contains(testArray, new ElementFilter.Filter<String>() {
             @Override
             public boolean isAccept(String s) {
                 return "11".equals(s);
@@ -400,6 +400,100 @@ public class ElementFilterTest {
             }
         });
         assertThat(result11, CoreMatchers.nullValue());
+    }
+
+    @Test
+    public void filterFirstIndex() throws Exception {
+        /*
+        Argument Check Test
+         */
+        try {
+            ElementFilter.filterFirstIndex((Iterable<?>) null, new ElementFilter.Filter<Object>() {
+                @Override
+                public boolean isAccept(Object o) {
+                    return false;
+                }
+            });
+
+            fail();
+        } catch (IllegalArgumentException e) {
+            // throw exception is right
+        }
+
+        try {
+            ElementFilter.filterFirstIndex(testList, null);
+
+            fail();
+        } catch (IllegalArgumentException e) {
+            // throw exception is right
+        }
+
+        /*
+        feature test
+         */
+        int result7Index = ElementFilter.filterFirstIndex(testList, new ElementFilter.Filter<String>() {
+            @Override
+            public boolean isAccept(String s) {
+                return "7".equals(s);
+            }
+        });
+
+        assertThat(result7Index, is(testList.indexOf("7")));
+
+        int result11Index = ElementFilter.filterFirstIndex(testList, new ElementFilter.Filter<String>() {
+            @Override
+            public boolean isAccept(String s) {
+                return "11".equals(s);
+            }
+        });
+        assertThat(result11Index, is(ElementFilter.INDEX_NONE));
+    }
+
+    @Test
+    public void filterFirstIndex1() throws Exception {
+        /*
+        Argument Check Test
+        */
+        try {
+            ElementFilter.filterFirstIndex((Iterable<?>) null, new ElementFilter.Filter<Object>() {
+                @Override
+                public boolean isAccept(Object o) {
+                    return false;
+                }
+            });
+
+            fail();
+        } catch (IllegalArgumentException e) {
+            // throw exception is right
+        }
+
+        try {
+            ElementFilter.filterFirstIndex(testArray, null);
+
+            fail();
+        } catch (IllegalArgumentException e) {
+            // throw exception is right
+        }
+
+        /*
+        feature test
+         */
+        int result7Index = ElementFilter.filterFirstIndex(testArray, new ElementFilter.Filter<String>() {
+            @Override
+            public boolean isAccept(String s) {
+                return "7".equals(s);
+            }
+        });
+
+        assertThat(result7Index, is(Arrays.asList(testArray).indexOf("7")));
+
+        int result11Index = ElementFilter.filterFirstIndex(testArray, new ElementFilter.Filter<String>() {
+            @Override
+            public boolean isAccept(String s) {
+                return "11".equals(s);
+            }
+        });
+        assertThat(result11Index, is(ElementFilter.INDEX_NONE));
     }
 
     @Test
