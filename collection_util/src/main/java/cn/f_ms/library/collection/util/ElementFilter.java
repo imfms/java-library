@@ -36,6 +36,7 @@ public class ElementFilter {
     }
 
     public static final int FILTER_ELEMENT_NUM_UNLIMIT = -1;
+    public static final int INDEX_NONE = -1;
 
     /**
      * no instance
@@ -95,28 +96,12 @@ public class ElementFilter {
      * @return result element, will return null when none
      */
     public static <Element, Result> Result filterFirst(Iterable<? extends Element> sources, Filter<Element> filter, Converter<Element, Result> converter) {
+        KeyValue<Integer, Result> indexAndElement = filterFirstWithIndex(sources, filter, converter);
 
-        if (sources == null) {
-            throw new IllegalArgumentException("sources can't be null");
-        }
-
-        if (filter == null) {
-            throw new IllegalArgumentException("filter can't be null");
-        }
-
-        if (converter == null) {
-            throw new IllegalArgumentException("converter can't be null");
-        }
-
-        for (Element source : sources) {
-            if (filter.isAccept(source)) {
-                return converter.convert(source);
-            }
-        }
-
-        return null;
+        return indexAndElement != null
+                ? indexAndElement.value()
+                : null;
     }
-
 
     /**
      * get array's first element after specify filter
@@ -146,25 +131,56 @@ public class ElementFilter {
      */
     public static <Element, Result> Result filterFirst(Element[] sources, Filter<Element> filter, Converter<Element, Result> converter) {
 
-        if (sources == null) {
-            throw new IllegalArgumentException("sources can't be null");
-        }
+        KeyValue<Integer, Result> resultIndexAndElement = filterFirstWithIndex(sources, filter, converter);
 
-        if (filter == null) {
-            throw new IllegalArgumentException("filter can't be null");
-        }
+        return resultIndexAndElement != null
+                ? resultIndexAndElement.value()
+                : null;
+    }
 
-        if (converter == null) {
-            throw new IllegalArgumentException("converter can't be null");
-        }
+    /**
+     * get collection's first element's index in sources after specify filter
+     *
+     * @param sources   source collection
+     * @param filter    element filter
+     * @param <Element> element type
+     * @return result element's index in sources, will return -1 when none
+     */
+    public static <Element> int filterFirstIndex(Iterable<? extends Element> sources, Filter<Element> filter) {
 
-        for (Element source : sources) {
-            if (filter.isAccept(source)) {
-                return converter.convert(source);
+        KeyValue<Integer, Element> resultIndexAndElement = filterFirstWithIndex(sources, filter, new Converter<Element, Element>() {
+            @Override
+            public Element convert(Element element) {
+                return element;
             }
-        }
+        });
 
-        return null;
+        return resultIndexAndElement != null
+                ? resultIndexAndElement.key()
+                : INDEX_NONE;
+    }
+
+
+    /**
+     * get array's first element's index in sources after specify filter
+     *
+     * @param sources   source array
+     * @param filter    element filter
+     * @param <Element> element type
+     * @return result element's index in sources, will return -1 when none
+     */
+    public static <Element> int filterFirstIndex(Element[] sources, Filter<Element> filter) {
+
+        KeyValue<Integer, Element> resultIndexAndElement = filterFirstWithIndex(sources, filter, new Converter<Element, Element>() {
+            @Override
+            public Element convert(Element element) {
+                return element;
+            }
+        });
+
+        return resultIndexAndElement != null
+                ? resultIndexAndElement.key()
+                : INDEX_NONE;
     }
 
     /**
@@ -742,5 +758,94 @@ public class ElementFilter {
         }
 
         return targetArray;
+    }
+
+    /**
+     * get collection's first data and its index after specify filter and converter
+     * // TODO: 18-1-10 test code
+     *
+     * @param sources   source collection
+     * @param filter    element filter
+     * @param converter element converter
+     * @param <Element> element type
+     * @return result's index and element, will return null when none
+     */
+    private static <Element, Result> KeyValue<Integer, Result> filterFirstWithIndex(Iterable<? extends Element> sources, Filter<Element> filter, Converter<Element, Result> converter) {
+
+        if (sources == null) {
+            throw new IllegalArgumentException("sources can't be null");
+        }
+
+        if (filter == null) {
+            throw new IllegalArgumentException("filter can't be null");
+        }
+
+        if (converter == null) {
+            throw new IllegalArgumentException("converter can't be null");
+        }
+
+        int index = 0;
+        for (Element source : sources) {
+            if (filter.isAccept(source)) {
+                return new KeyValue<>(index, converter.convert(source));
+            }
+            index++;
+        }
+
+        return null;
+    }
+
+    /**
+     * get array's first data and its index after specify filter and converter
+     *
+     * @param sources   source array
+     * @param filter    element filter
+     * @param converter element converter
+     * @param <Element> element type
+     * @return result element and its index, will return null when none
+     */
+    private static <Element, Result> KeyValue<Integer, Result> filterFirstWithIndex(Element[] sources, Filter<Element> filter, Converter<Element, Result> converter) {
+
+        if (sources == null) {
+            throw new IllegalArgumentException("sources can't be null");
+        }
+
+        if (filter == null) {
+            throw new IllegalArgumentException("filter can't be null");
+        }
+
+        if (converter == null) {
+            throw new IllegalArgumentException("converter can't be null");
+        }
+
+        for (int i = 0; i < sources.length; i++) {
+            Element element = sources[i];
+
+            if (filter.isAccept(element)) {
+                return new KeyValue<>(
+                        i, converter.convert(element)
+                );
+            }
+        }
+
+        return null;
+    }
+
+    private static class KeyValue<K, V> {
+        private K key;
+        private V value;
+
+        public KeyValue(K key, V value) {
+            this.key = key;
+            this.value = value;
+        }
+
+        public K key() {
+            return key;
+        }
+
+        public V value() {
+            return value;
+        }
     }
 }

@@ -403,6 +403,100 @@ public class ElementFilterTest {
     }
 
     @Test
+    public void filterFirstIndex() throws Exception {
+        /*
+        Argument Check Test
+         */
+        try {
+            ElementFilter.filterFirstIndex((Iterable<?>) null, new ElementFilter.Filter<Object>() {
+                @Override
+                public boolean isAccept(Object o) {
+                    return false;
+                }
+            });
+
+            fail();
+        } catch (IllegalArgumentException e) {
+            // throw exception is right
+        }
+
+        try {
+            ElementFilter.filterFirstIndex(testList, null);
+
+            fail();
+        } catch (IllegalArgumentException e) {
+            // throw exception is right
+        }
+
+        /*
+        feature test
+         */
+        int result7Index = ElementFilter.filterFirstIndex(testList, new ElementFilter.Filter<String>() {
+            @Override
+            public boolean isAccept(String s) {
+                return "7".equals(s);
+            }
+        });
+
+        assertThat(result7Index, is(testList.indexOf("7")));
+
+        int result11Index = ElementFilter.filterFirstIndex(testList, new ElementFilter.Filter<String>() {
+            @Override
+            public boolean isAccept(String s) {
+                return "11".equals(s);
+            }
+        });
+        assertThat(result11Index, is(ElementFilter.INDEX_NONE));
+    }
+
+    @Test
+    public void filterFirstIndex1() throws Exception {
+        /*
+        Argument Check Test
+        */
+        try {
+            ElementFilter.filterFirstIndex((Iterable<?>) null, new ElementFilter.Filter<Object>() {
+                @Override
+                public boolean isAccept(Object o) {
+                    return false;
+                }
+            });
+
+            fail();
+        } catch (IllegalArgumentException e) {
+            // throw exception is right
+        }
+
+        try {
+            ElementFilter.filterFirstIndex(testArray, null);
+
+            fail();
+        } catch (IllegalArgumentException e) {
+            // throw exception is right
+        }
+
+        /*
+        feature test
+         */
+        int result7Index = ElementFilter.filterFirstIndex(testArray, new ElementFilter.Filter<String>() {
+            @Override
+            public boolean isAccept(String s) {
+                return "7".equals(s);
+            }
+        });
+
+        assertThat(result7Index, is(Arrays.asList(testArray).indexOf("7")));
+
+        int result11Index = ElementFilter.filterFirstIndex(testArray, new ElementFilter.Filter<String>() {
+            @Override
+            public boolean isAccept(String s) {
+                return "11".equals(s);
+            }
+        });
+        assertThat(result11Index, is(ElementFilter.INDEX_NONE));
+    }
+
+    @Test
     public void convert() throws Exception {
 
         /*
