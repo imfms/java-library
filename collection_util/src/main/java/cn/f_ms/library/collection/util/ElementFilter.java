@@ -762,7 +762,6 @@ public class ElementFilter {
 
     /**
      * get collection's first data and its index after specify filter and converter
-     * // TODO: 18-1-10 test code
      *
      * @param sources   source collection
      * @param filter    element filter
