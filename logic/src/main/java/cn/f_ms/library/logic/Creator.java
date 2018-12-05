@@ -6,7 +6,7 @@ package cn.f_ms.library.logic;
  * @author f_ms
  * @date 18-12-5
  */
-public interface Creater<Argument, Product> {
+public interface Creator<Argument, Product> {
     /**
      * create product
      *
