@@ -4,8 +4,8 @@ import java.util.List;
 
 public class PagingHelper {
 
-    public static final int PAGE_CONTENT_COUNT = 20;
-    public static final int PAGE_CONTENT_INIT = 1;
+    public static int PAGE_CONTENT_COUNT = 20;
+    public static int PAGE_CONTENT_INIT = 1;
 
     private final int mFirstPageNum;
     private final int mEachPageItemNum;
